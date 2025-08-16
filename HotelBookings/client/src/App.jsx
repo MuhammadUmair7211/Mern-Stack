@@ -3,28 +3,38 @@ import Navbar from "./components/Navbar";
 import Home from "./pages/Home";
 import Experience from "./pages/Experience";
 import About from "./pages/About";
-import Owner from "./pages/Owner";
 import RoomDetails from "./pages/RoomDetails";
 import Footer from "./components/Footer";
 import AllRooms from "./pages/AllRooms";
 import MyBookings from "./pages/MyBookings";
-
+import HotelReg from "./components/HotelReg";
+import { useState } from "react";
+import Layout from "./pages/HotelOwner/Layout";
+import AddRoom from "./pages/HotelOwner/AddRoom";
+import ListRoom from "./pages/HotelOwner/ListRoom";
+import Dashboard from './pages/HotelOwner/Dashboard'
 const App = () => {
 	const location = useLocation();
-	const showNavbar = location.pathname.includes("owner");
+	const [showPopUp, setShowPopUp] = useState(false);
+	const IsOwnerPath = location.pathname.includes("owner");
 	return (
 		<div>
-			{!showNavbar && <Navbar />}
+			{!IsOwnerPath && <Navbar setShowPopUp={setShowPopUp} />}
+			{showPopUp && <HotelReg setShowPopUp={setShowPopUp} />}
 			<Routes>
 				<Route path="/" element={<Home />} />
 				<Route path="/rooms" element={<AllRooms />} />
 				<Route path="/experience" element={<Experience />} />
 				<Route path="/about" element={<About />} />
-				<Route path="/owner" element={<Owner />} />
+				<Route path="/owner" element={<Layout />}>
+					<Route index element={<Dashboard />} />
+					<Route path="/owner/add-room" element={<AddRoom />} />
+					<Route path="/owner/list-room" element={<ListRoom />} />
+				</Route>
 				<Route path="/room-details/:id" element={<RoomDetails />} />
-				<Route path="my-bookings" element={<MyBookings />} />
+				<Route path="/my-bookings" element={<MyBookings />} />
 			</Routes>
-			<Footer />
+			{!IsOwnerPath && <Footer />}
 		</div>
 	);
 };

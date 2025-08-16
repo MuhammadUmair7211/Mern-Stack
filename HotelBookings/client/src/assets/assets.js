@@ -207,7 +207,7 @@ export const roomsDummyData = [
 		pricePerNight: 399,
 		amenities: ["Room Service", "Mountain View", "Pool Access"],
 		images: [roomImg1, roomImg2, roomImg3, roomImg4],
-		isAvailable: true,
+		isAvailable: false,
 		createdAt: "2025-04-10T06:26:04.013Z",
 		updatedAt: "2025-04-10T06:26:04.013Z",
 		__v: 0,
@@ -243,7 +243,7 @@ export const roomsDummyData = [
 		pricePerNight: 199,
 		amenities: ["Free WiFi", "Room Service", "Pool Access"],
 		images: [roomImg4, roomImg1, roomImg2, roomImg3],
-		isAvailable: true,
+		isAvailable: false,
 		createdAt: "2025-04-10T06:23:20.252Z",
 		updatedAt: "2025-04-10T06:23:20.252Z",
 		__v: 0,
@@ -261,7 +261,7 @@ export const userBookingsDummyData = [
 		checkOutDate: "2025-05-01T00:00:00.000Z",
 		totalPrice: 299,
 		guests: 1,
-		status: "pending",
+		status: "paid",
 		paymentMethod: "Stripe",
 		isPaid: true,
 		createdAt: "2025-04-10T06:42:01.529Z",
@@ -305,7 +305,7 @@ export const userBookingsDummyData = [
 // Dashboard Dummy Data
 export const dashboardDummyData = {
 	totalBookings: 3,
-	totalRevenue: 897,
+	totalRevenue: "$897",
 	bookings: userBookingsDummyData,
 };
 

@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { NavLink, Link, useLocation, useNavigate } from "react-router-dom";
 import { assets } from "../assets/assets";
 import { useClerk, useUser, UserButton } from "@clerk/clerk-react";
-const Navbar = () => {
+const Navbar = ({ setShowPopUp }) => {
 	const navigate = useNavigate();
 	const location = useLocation();
 	const { openSignIn } = useClerk();
@@ -59,7 +59,7 @@ const Navbar = () => {
 			}`}
 		>
 			{/* Logo */}
-			<Link to="/" className="flex items-center gap-2">
+			<Link to="/">
 				<img
 					src={assets.logo}
 					alt="logo"
@@ -70,29 +70,46 @@ const Navbar = () => {
 			{/* Desktop Nav */}
 			<div className="hidden md:flex items-center gap-4 lg:gap-8">
 				{navLinks.map((link, i) => (
-					<Link
+					<NavLink
 						key={i}
 						to={link.path}
-						className={`group flex flex-col gap-0.5 ${
-							isScrolled ? "text-gray-700" : "text-white"
-						}`}
+						className={({ isActive }) =>
+							`group flex flex-col gap-0.5 ${
+								isScrolled ? "text-gray-700" : "text-white"
+							}`
+						}
 					>
-						{link.name}
-						<div
-							className={`${
-								isScrolled ? "bg-gray-700" : "bg-white"
-							} h-0.5 w-0 group-hover:w-full transition-all duration-300`}
-						/>
-					</Link>
+						{({ isActive }) => (
+							<>
+								{link.name}
+								<div
+									className={`h-0.5 transition-all duration-300
+					${isScrolled ? "bg-gray-700" : "bg-white"}
+					${isActive ? "w-full" : "w-0 group-hover:w-full"}
+				`}
+								/>
+							</>
+						)}
+					</NavLink>
 				))}
 				{user && (
 					<button
 						onClick={() => navigate("/owner")}
-						className={`border px-4 py-1 text-sm font-light rounded-full cursor-pointer ${
+						className={`border px-4 py-1 text-sm hover:text-black hover:bg-white duration-200 font-light rounded-full cursor-pointer ${
 							isScrolled ? "text-black" : "text-white"
 						} transition-all`}
 					>
 						Dashboard
+					</button>
+				)}
+				{user && (
+					<button
+						onClick={() => setShowPopUp(true)}
+						className={`border px-4 py-1 text-sm hover:text-black hover:bg-white duration-200 font-light rounded-full cursor-pointer ${
+							isScrolled ? "text-black" : "text-white"
+						} transition-all`}
+					>
+						List Your Hotel
 					</button>
 				)}
 			</div>
@@ -165,10 +182,14 @@ const Navbar = () => {
 				}`}
 			>
 				<button
-					className="absolute top-4 right-4"
+					className="absolute top-4 right-4 cursor-pointer"
 					onClick={() => setIsMenuOpen(false)}
 				>
-					<img src={assets.closeIcon} alt="close-menu-icon" className="h-6" />
+					<img
+						src={assets.closeIcon}
+						alt="close-menu-icon"
+						className="h-5 hover:h-6 duration-300"
+					/>
 				</button>
 
 				{navLinks.map((link, i) => (
@@ -176,13 +197,20 @@ const Navbar = () => {
 						{link.name}
 					</Link>
 				))}
-
 				{user && (
 					<button
 						onClick={() => navigate("/owner")}
-						className="border px-4 py-1 text-sm font-light rounded-full cursor-pointer transition-all"
+						className="border px-4 py-1 text-sm hover:text-black hover:bg-gray-100 hover:border  hover:border-white duration-200 font-light rounded-full cursor-pointer transition-all"
 					>
 						Dashboard
+					</button>
+				)}
+				{user && (
+					<button
+						onClick={() => setShowPopUp(true)}
+						className="border px-4 py-1 text-sm hover:text-black hover:bg-gray-100 hover:border  hover:border-white duration-200 font-light rounded-full cursor-pointer transition-all"
+					>
+						List Your Hotel
 					</button>
 				)}
 			</div>
