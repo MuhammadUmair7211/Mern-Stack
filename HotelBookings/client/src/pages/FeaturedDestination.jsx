@@ -15,7 +15,11 @@ const FeaturedDestination = () => {
 			<div className="flex flex-wrap items-center justify-center gap-6 mt-10">
 				{hotels.map((hotel) => {
 					return (
-						<Link key={hotel._id} to={`/room-details/${hotel._id}`}>
+						<Link
+							key={hotel._id}
+							to={`/room-details/${hotel._id}`}
+							onClick={() => scrollTo(0, 0)}
+						>
 							<div className="max-w-md rounded-2xl overflow-hidden shadow-lg bg-white border border-gray-200">
 								{/* Image */}
 								<img
@@ -65,7 +69,10 @@ const FeaturedDestination = () => {
 				})}
 			</div>
 			<button
-				onClick={() => navigate("/rooms")}
+				onClick={() => {
+					navigate("/rooms");
+					scrollTo(0, 0);
+				}}
 				className="border border-gray-200 my-24 hover:bg-gray-100 cursor-pointer px-4 py-2"
 			>
 				View All Destinations

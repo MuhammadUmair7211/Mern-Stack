@@ -1,6 +1,18 @@
+import { useState } from "react";
 import { assets, cities } from "../assets/assets";
 
 const Hero = () => {
+	const [formData, setFormData] = useState({
+		destination: "",
+		checkInDate: "",
+		checkOutDate: "",
+		guests: "",
+	});
+
+	const handleFormSubmit = (e) => {
+		e.preventDefault();
+		console.log(formData);
+	};
 	return (
 		<div className="min-h-screen flex flex-col items-start justify-center px-6 md:px-16 lg:px-24 xl:px-32 text-white bg-[url('/src/assets/heroImage.png')] bg-no-repeat bg-cover bg-center">
 			<p className="bg-[#49B9ff]/50 px-3.5 inline-block py-1 rounded-full mt-20">
@@ -13,7 +25,10 @@ const Hero = () => {
 				Unparalleled luxury and comfort await at the world's most exclusive{" "}
 				hotels and resorts. Start your journey today.
 			</p>
-			<form className="flex flex-wrap items-end gap-4 bg-white text-gray-600 p-4 mt-4 rounded-lg">
+			<form
+				onSubmit={handleFormSubmit}
+				className="flex flex-wrap items-end gap-4 bg-white text-gray-600 p-4 mt-4 rounded-lg"
+			>
 				<div>
 					<div className="flex items-center gap-2">
 						<img
@@ -29,6 +44,10 @@ const Hero = () => {
 						list="destinations"
 						id="destination-input"
 						required
+						value={formData.destination}
+						onChange={(e) =>
+							setFormData({ ...formData, destination: e.target.value })
+						}
 						className="outline-none rounded border border-gray-200 mt-1.5 px-3 py-1.5"
 					/>
 					<datalist id="destinations">
@@ -49,6 +68,10 @@ const Hero = () => {
 					<input
 						type="date"
 						placeholder="Type here"
+						value={formData.checkInDate}
+						onChange={(e) =>
+							setFormData({ ...formData, checkInDate: e.target.value })
+						}
 						required
 						min={new Date().toISOString().split("T")[0]}
 						className="outline-none rounded border border-gray-200 mt-1.5 px-3 py-1.5"
@@ -66,6 +89,10 @@ const Hero = () => {
 					<input
 						type="date"
 						placeholder="Type here"
+						value={formData.checkOutDate}
+						onChange={(e) =>
+							setFormData({ ...formData, checkOutDate: e.target.value })
+						}
 						required
 						min={new Date().toISOString().split("T")[0]}
 						className="outline-none rounded border border-gray-200 mt-1.5 px-3 py-1.5"
@@ -78,7 +105,12 @@ const Hero = () => {
 					<input
 						type="number"
 						placeholder="0"
+						value={formData.guests}
+						onChange={(e) =>
+							setFormData({ ...formData, guests: e.target.value })
+						}
 						required
+						min={0}
 						className="outline-none rounded border border-gray-200 mt-1.5 px-3 py-1.5 w-16"
 					/>
 				</div>

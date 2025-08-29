@@ -2,6 +2,7 @@ import Title from "../../components/Title";
 import { dashboardDummyData } from "../../assets/assets";
 import { assets } from "../../assets/assets";
 const Dashboard = () => {
+	
 	const dashboardDetails = [
 		{
 			name: "Total Bookings",

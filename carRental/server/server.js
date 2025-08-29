@@ -7,7 +7,6 @@ import ownerRouter from "./routes/ownerRoutes.js";
 import bookingRouter from "./routes/bookingRoutes.js";
 const app = express();
 dotenv.config();
-connectDB();
 app.use(cors());
 app.use(express.json());
 connectDB();

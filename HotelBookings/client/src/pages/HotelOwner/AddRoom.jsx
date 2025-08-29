@@ -1,8 +1,11 @@
 import { useState } from "react";
 import { assets } from "../../assets/assets";
 import Title from "../../components/Title";
+import toast from "react-hot-toast";
+import { useAppContext } from "../../context/AppContext";
 
 const AddRoom = () => {
+	const { axios, getToken } = useAppContext();
 	const rooms = ["Single Bed", "Double Bed", "Luxury Room", "Family Suite"];
 	const [images, setImages] = useState({
 		1: null,
@@ -22,9 +25,60 @@ const AddRoom = () => {
 			"Pool Access": false,
 		},
 	});
+	const handleFormSubmit = async (e) => {
+		console.log(inputs);
+		const token = await getToken();
+		e.preventDefault();
+		if (
+			!inputs.roomType ||
+			!inputs.pricePerNight ||
+			!inputs.amenities ||
+			!Object.values(images).some((image) => image)
+		) {
+			toast.error("please fill in all the details");
+			return;
+		}
+		try {
+			const formData = new FormData();
+			formData.append("roomType", inputs.roomType);
+			formData.append("pricePerNight", inputs.pricePerNight);
+			const amenities = Object.keys(inputs.amenities).filter(
+				(key) => inputs.amenities[key]
+			);
+			formData.append("amenities", JSON.stringify(amenities));
+			Object.keys(images).forEach(
+				(key) => images[key] && formData.append("images", images[key])
+			);
+			const { data } = await axios.post("/api/rooms/", formData, {
+				headers: {
+					Authorization: `Bearer ${token}`,
+				},
+			});
+			console.log(data);
 
+			if (data.success) {
+				toast.success(data.message);
+				setInputs({
+					roomType: "",
+					pricePerNight: "",
+					amenities: {
+						"Free Wifi": false,
+						"Free Breakfast": false,
+						"Room Service": false,
+						"Mountain View": false,
+						"Pool Access": false,
+					},
+				});
+				setImages({ 1: null, 2: null, 3: null, 4: null });
+			} else {
+				toast.error(data.message);
+			}
+		} catch (error) {
+			toast.error(error.message);
+		}
+	};
 	return (
-		<form>
+		<form onSubmit={handleFormSubmit}>
 			{/* Page Heading */}
 			<Title
 				title="Add Room"
@@ -98,7 +152,7 @@ const AddRoom = () => {
 							placeholder="0"
 							min={0}
 							onChange={(e) =>
-								setInputs({ ...inputs, pricePerNight: e.target.value })
+								setInputs({ ...inputs, pricePerNight: Number(e.target.value) })
 							}
 							className="border border-gray-300 w-24 p-2 mt-2 outline-none rounded "
 						/>
