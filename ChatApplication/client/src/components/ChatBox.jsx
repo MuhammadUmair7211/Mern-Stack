@@ -62,8 +62,6 @@ const ChatBox = () => {
 			<div className="overflow-y-scroll scrollbar-hide h-[70vh] py-4 px-2">
 				{Array.isArray(allMessages) &&
 					allMessages.map((message, index) => {
-						console.log(message.image);
-
 						return (
 							<div
 								key={index}

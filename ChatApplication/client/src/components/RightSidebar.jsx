@@ -3,7 +3,8 @@ import { MediaImages } from "../assets/assets";
 import { useUser } from "../context/UserContext";
 
 const RightSidebar = () => {
-	const { user, logout } = useUser();
+	const { user, logout, allMessages } = useUser();
+
 	return (
 		<div className="bg-[#001030] text-white hidden lg:flex flex-col justify-between">
 			<div>
@@ -25,19 +26,22 @@ const RightSidebar = () => {
 				</div>
 				<div className="mt-4 px-2">
 					<h3 className="text-sm font-semibold text-gray-300 mb-2">Media</h3>
-					{MediaImages.length > 0 ? (
+
+					{allMessages.some((msg) => msg.image) ? (
 						<div className="grid grid-cols-2 lg:grid-cols-3 gap-2">
-							{MediaImages.map((image, index) => (
-								<img
-									key={index}
-									src={image}
-									alt={`media-${index}`}
-									className="rounded-lg object-cover w-full h-32"
-								/>
-							))}
+							{allMessages.map((msg, index) =>
+								msg.image ? (
+									<img
+										key={index}
+										src={msg.image}
+										onClick={() => window.open(msg.image, "_blank")}
+										className="rounded-lg object-cover w-full h-32 cursor-pointer"
+									/>
+								) : null
+							)}
 						</div>
 					) : (
-						<p className="text-gray-500 text-xs">No media shared yet</p>
+						<p className="text-gray-500">No media shared yet</p>
 					)}
 				</div>
 			</div>

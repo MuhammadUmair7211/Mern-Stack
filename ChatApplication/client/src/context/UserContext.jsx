@@ -26,7 +26,6 @@ const UserProvider = ({ children }) => {
 				`http://localhost:3000/api/messages/${user._id}/${selectChat._id}`
 			);
 			const data = await res.json();
-			console.log(data.messages);
 			setAllMessages(data.messages);
 		};
 		fetchAllMessages();
@@ -41,12 +40,10 @@ const UserProvider = ({ children }) => {
 		if (imageUpload) {
 			formData.append("image", imageUpload);
 		}
-		const res = await fetch("http://localhost:3000/api/messages", {
+		await fetch("http://localhost:3000/api/messages", {
 			method: "POST",
 			body: formData,
 		});
-		const data = await res.json();
-		console.log(data);
 
 		setMessages((prevMessage) => [
 			...prevMessage,
