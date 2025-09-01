@@ -1,7 +1,31 @@
 import { Link, useNavigate } from "react-router-dom";
 import assets from "../../assets/assets";
+import { useState } from "react";
+import { toast } from "react-toastify";
 const Login = () => {
 	const navigate = useNavigate();
+	const [formData, setFormData] = useState({
+		username: "",
+		password: "",
+	});
+	const handleFormSubmit = async (e) => {
+		e.preventDefault();
+		const res = await fetch("http://localhost:3000/api/auth/login", {
+			method: "POST",
+			headers: {
+				"Content-Type": "application/json",
+			},
+			body: JSON.stringify(formData),
+		});
+		const data = await res.json();
+		if (res.ok) {
+			toast.success(data.message);
+			localStorage.setItem("token", data.token);
+			navigate("/chat");
+		} else {
+			toast.error(data.message);
+		}
+	};
 	return (
 		<div
 			className="px-4 md:px-16 lg:px-52 flex flex-col lg:flex-row items-center justify-evenly min-h-screen gap-10 bg-cover bg-center"
@@ -16,13 +40,20 @@ const Login = () => {
 				/>
 			</div>
 			{/* Form Section */}
-			<form className="w-full max-w-md bg-white/90 backdrop-blur-sm p-6 rounded-xl shadow-md">
+			<form
+				onSubmit={handleFormSubmit}
+				className="w-full max-w-md bg-white/90 backdrop-blur-sm p-6 rounded-xl shadow-md"
+			>
 				<h2 className="text-2xl md:text-3xl font-semibold mb-4 text-center lg:text-left">
 					Login
 				</h2>
 				<div className="mb-4">
 					<input
 						type="text"
+						value={formData.username}
+						onChange={(e) =>
+							setFormData({ ...formData, username: e.target.value })
+						}
 						placeholder="Username"
 						required
 						className="border border-gray-300 outline-none rounded-lg w-full px-3 py-2 text-sm md:text-base focus:ring-2 focus:ring-blue-400"
@@ -31,6 +62,10 @@ const Login = () => {
 				<div className="mb-2">
 					<input
 						type="password"
+						value={formData.password}
+						onChange={(e) =>
+							setFormData({ ...formData, password: e.target.value })
+						}
 						placeholder="Password"
 						required
 						className="border border-gray-300 outline-none rounded-lg w-full px-3 py-2 text-sm md:text-base focus:ring-2 focus:ring-blue-400"

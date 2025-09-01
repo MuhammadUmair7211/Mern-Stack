@@ -3,8 +3,7 @@ import assets, { MediaImages } from "../assets/assets";
 import { useUser } from "../context/UserContext";
 
 const RightSidebar = () => {
-	const { user } = useUser();
-
+	const { user, logout } = useUser();
 	return (
 		<div className="bg-[#001030] text-white hidden lg:flex flex-col justify-between">
 			<div>
@@ -15,12 +14,14 @@ const RightSidebar = () => {
 						className="w-28 h-28 object-cover rounded-full"
 					/>
 					<div className="flex items-center gap-1">
-						<span className="text-xl font-medium">{user}</span>
+						<span className="text-xl font-medium">
+							{user ? user.username : <p>Guest</p>}
+						</span>
 						<GoDotFill className="text-md text-green-500" />
 					</div>
-					<p className="text-[12px] text-gray-400">
-						Hey there, I am using chat app
-					</p>
+					<div className="text-[12px] text-gray-400">
+						{user ? user.bio : <p>Hey,I'm using chatApp</p>}
+					</div>
 				</div>
 				<div className="mt-4 px-2">
 					<h3 className="text-sm font-semibold text-gray-300 mb-2">Media</h3>
@@ -41,7 +42,10 @@ const RightSidebar = () => {
 				</div>
 			</div>
 			<div className="mx-auto p-4 ">
-				<button className="text-red-500 py-2 px-6 rounded-full bg-white hover:scale-105 cursor-pointer duration-300">
+				<button
+					onClick={logout}
+					className="text-red-500 py-2 px-6 rounded-full bg-white hover:scale-105 cursor-pointer duration-300"
+				>
 					Logout
 				</button>
 			</div>
