@@ -1,5 +1,5 @@
 import { GoDotFill } from "react-icons/go";
-import assets, { MediaImages } from "../assets/assets";
+import { MediaImages } from "../assets/assets";
 import { useUser } from "../context/UserContext";
 
 const RightSidebar = () => {
@@ -9,7 +9,7 @@ const RightSidebar = () => {
 			<div>
 				<div className="p-6 flex border-b border-gray-500 flex-col items-center gap-2">
 					<img
-						src={assets.profile_img}
+						src={user?.image}
 						alt="User profile"
 						className="w-28 h-28 object-cover rounded-full"
 					/>

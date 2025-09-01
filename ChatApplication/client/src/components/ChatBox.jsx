@@ -13,7 +13,6 @@ const ChatBox = () => {
 		user,
 		newMessage,
 		setNewMessage,
-		messages,
 		handleFormSubmit,
 		allMessages,
 	} = useUser();
@@ -21,14 +20,14 @@ const ChatBox = () => {
 
 	useEffect(() => {
 		messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
-	}, [messages]);
+	}, [allMessages]);
 	return (
 		<div className="bg-white mx-2 lg:mx-0 flex flex-col justify-between">
 			<div className="mt-4 text-black flex items-center justify-between py-2 px-6 border-b border-gray-300">
 				{selectChat ? (
 					<div className="flex items-center gap-2">
 						<img
-							src={assets.avatar_icon}
+							src={selectChat?.image || assets.avatar_icon}
 							className="w-10 h-10 object-cover rounded-full"
 						/>
 						<div>
@@ -76,7 +75,6 @@ const ChatBox = () => {
 
 				{Array.isArray(allMessages) &&
 					allMessages.map((message, index) => {
-						console.log(message);
 						return (
 							<div
 								key={index}
@@ -87,7 +85,11 @@ const ChatBox = () => {
 								}  items-end gap-2 mt-4`}
 							>
 								<img
-									src={assets.profile_img}
+									src={
+										message.senderId === user._id
+											? user.image
+											: selectChat.image
+									}
 									alt=""
 									className="w-8 h-8 object-center rounded-full"
 								/>

@@ -7,7 +7,7 @@ const SideBar = () => {
 	const { setShowSideBar, allUsers, search, setSearch, setSelectChat } =
 		useUser();
 	return (
-		<div className="bg-[#001030] max-w-[1200px] p-6 w-full fixed text-white flex flex-col gap-1">
+		<div className="bg-[#001030] max-w-[1200px] p-2 md:p-6 w-full fixed text-white flex flex-col gap-1">
 			<div className="p-4">
 				<div className="flex items-center justify-between">
 					<img src={assets.logo} className="w-28" />
