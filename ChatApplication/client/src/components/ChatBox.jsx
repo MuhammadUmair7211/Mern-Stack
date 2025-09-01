@@ -15,6 +15,8 @@ const ChatBox = () => {
 		setNewMessage,
 		handleFormSubmit,
 		allMessages,
+		imageUpload,
+		setImageUpload,
 	} = useUser();
 	const messagesEndRef = useRef(null);
 
@@ -58,23 +60,10 @@ const ChatBox = () => {
 				</div>
 			</div>
 			<div className="overflow-y-scroll scrollbar-hide h-[70vh] py-4 px-2">
-				{/* <div className="flex items-end gap-2">
-					<img
-						src={assets.profile_img}
-						alt=""
-						className="w-8 h-8 object-center rounded-full"
-					/>
-					<div className="bg-blue-500 flex flex-col items-end text-white px-4 py-2 rounded-r-[10px] rounded-tl-[10px]">
-						<p className="text-sm max-w-[300px]">
-							Hello this is my contact, please save this number, i'll call you
-							when i am back
-						</p>
-						<span className="text-xs text-gray-100">2:00 pm</span>
-					</div>
-				</div> */}
-
 				{Array.isArray(allMessages) &&
 					allMessages.map((message, index) => {
+						console.log(message.image);
+
 						return (
 							<div
 								key={index}
@@ -101,6 +90,15 @@ const ChatBox = () => {
 												: "rounded-r-[10px] rounded-tl-[10px]"
 										}`}
 								>
+									{message.image && (
+										<img
+											src={message.image}
+											alt="chat-img"
+											className="w-60 h-40 object-cover rounded cursor-pointer"
+											onClick={() => window.open(message.image, "_blank")}
+										/>
+									)}
+
 									<p className="max-w-[300px]">{message.text}</p>
 									<span className="text-xs text-gray-100">
 										{new Date(message.createdAt).toLocaleTimeString([], {
@@ -114,7 +112,26 @@ const ChatBox = () => {
 					})}
 				<div ref={messagesEndRef} />
 			</div>
-
+			{imageUpload && (
+				<div className="p-2 border-t border-gray-200 flex items-center gap-4">
+					<img
+						src={URL.createObjectURL(imageUpload)}
+						alt="preview"
+						className="w-20 h-20 object-cover rounded-lg border"
+					/>
+					<button
+						type="button"
+						onClick={() => {
+							setImageUpload(null);
+							const input = document.getElementById("file-upload");
+							if (input) input.value = "";
+						}}
+						className="text-red-500 text-sm hover:text-red-600 hover:bg-gray-200 px-4 py-2 rounded-lg duration-300 cursor-pointer"
+					>
+						✕ Remove
+					</button>
+				</div>
+			)}
 			<form
 				onSubmit={handleFormSubmit}
 				className="flex items-center justify-between text-black border border-gray-300 py-3 px-4"
@@ -129,18 +146,29 @@ const ChatBox = () => {
 					className="outline-none flex-1"
 					disabled={!selectChat}
 				/>
-				<div className="flex items-center gap-4">
-					<TfiGallery
-						size={25}
-						className="hover:text-green-500 duration-300 cursor-pointer"
-					/>
-					<button type="submit">
-						<IoMdSend
-							size={30}
-							className="text-blue-600 hover:text-blue-500 duration-300 cursor-pointer"
-						/>
-					</button>
-				</div>
+				{selectChat && (
+					<div className="flex items-center gap-4">
+						<label htmlFor="file-upload" className="cursor-pointer">
+							<input
+								type="file"
+								id="file-upload"
+								onChange={(e) => setImageUpload(e.target.files[0])}
+								accept="image/*"
+								className="hidden"
+							/>
+							<TfiGallery
+								size={25}
+								className="hover:text-green-500 duration-300 cursor-pointer"
+							/>
+						</label>
+						<button type="submit">
+							<IoMdSend
+								size={30}
+								className="text-blue-600 hover:text-blue-500 duration-300 cursor-pointer"
+							/>
+						</button>
+					</div>
+				)}
 			</form>
 		</div>
 	);

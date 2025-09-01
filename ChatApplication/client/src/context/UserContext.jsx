@@ -12,6 +12,7 @@ const UserProvider = ({ children }) => {
 	const [selectChat, setSelectChat] = useState(null);
 	const [search, setSearch] = useState("");
 	const [allUsers, setAllUsers] = useState([]);
+	const [imageUpload, setImageUpload] = useState(null);
 
 	const [newMessage, setNewMessage] = useState("");
 	const [messages, setMessages] = useState([]);
@@ -33,16 +34,16 @@ const UserProvider = ({ children }) => {
 	const handleFormSubmit = async (e) => {
 		e.preventDefault();
 		if (!newMessage.trim()) return;
+		const formData = new FormData();
+		formData.append("text", newMessage);
+		formData.append("senderId", user._id);
+		formData.append("receiverId", selectChat._id);
+		if (imageUpload) {
+			formData.append("image", imageUpload);
+		}
 		const res = await fetch("http://localhost:3000/api/messages", {
 			method: "POST",
-			headers: {
-				"Content-Type": "application/json",
-			},
-			body: JSON.stringify({
-				text: newMessage,
-				senderId: user._id,
-				receiverId: selectChat._id,
-			}),
+			body: formData,
 		});
 		const data = await res.json();
 		console.log(data);
@@ -57,9 +58,11 @@ const UserProvider = ({ children }) => {
 					hour: "2-digit",
 					minute: "2-digit",
 				}),
+				image: imageUpload ? URL.createObjectURL(imageUpload) : null,
 			},
 		]);
 		setNewMessage("");
+		setImageUpload(null);
 	};
 
 	useEffect(() => {
@@ -128,6 +131,8 @@ const UserProvider = ({ children }) => {
 		newMessage,
 		setNewMessage,
 		allMessages,
+		imageUpload,
+		setImageUpload,
 	};
 	return <UserContext.Provider value={value}>{children}</UserContext.Provider>;
 };
