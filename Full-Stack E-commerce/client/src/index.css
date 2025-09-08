@@ -1,0 +1,10 @@
+@import "tailwindcss";
+body {
+	font-family: Outfit;
+}
+.font-prata {
+	font-family: Prata;
+}
+::-webkit-scrollbar {
+	display: none;
+}

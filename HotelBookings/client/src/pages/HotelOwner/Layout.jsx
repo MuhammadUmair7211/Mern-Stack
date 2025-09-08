@@ -19,7 +19,6 @@ const Layout = () => {
 				<div className="flex-1 md:px-10 h-full">
 					<Outlet />
 				</div>
-				0-
 			</div>
 		</div>
 	);
