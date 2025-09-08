@@ -18,9 +18,20 @@ const AppProvider = ({ children }) => {
 	const [isLoggedIn, setIsLoggedIn] = useState(false);
 	const [user, setUser] = useState({});
 	const [token, setToken] = useState(null);
+	const [showDropdown, setShowDropdown] = useState(false);
 	const isCartPage = location.pathname === "/cart";
 	const buttonText = isCartPage ? "Proceed to Checkout" : " Place Order";
 	const totalQuantity = cartItems.reduce((acc, item) => acc + item.quantity, 0);
+	useEffect(() => {
+		const storedToken = localStorage.getItem("token");
+		const storedUser = JSON.parse(localStorage.getItem("user"));
+
+		if (storedToken && storedUser) {
+			setToken(storedToken);
+			setUser(storedUser);
+			setIsLoggedIn(true);
+		}
+	}, []);
 	useEffect(() => {
 		const savedCart = JSON.parse(localStorage.getItem("cart")) || [];
 		if (savedCart.length) setCartItems(savedCart);
@@ -110,6 +121,15 @@ const AppProvider = ({ children }) => {
 			navigate("/orders");
 		}
 	};
+	const handleLogout = () => {
+		navigate("/login");
+		localStorage.removeItem("token");
+		localStorage.removeItem("user");
+		setUser(null);
+		setToken(null);
+		setIsLoggedIn(false);
+		setShowDropdown(false);
+	};
 
 	const value = {
 		showSideBar,
@@ -140,6 +160,9 @@ const AppProvider = ({ children }) => {
 		setUser,
 		token,
 		setToken,
+		setShowDropdown,
+		showDropdown,
+		handleLogout,
 	};
 	return <AppContext.Provider value={value}>{children}</AppContext.Provider>;
 };

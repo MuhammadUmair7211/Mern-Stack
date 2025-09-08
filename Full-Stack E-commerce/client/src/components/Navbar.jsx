@@ -4,7 +4,15 @@ import { useApp } from "../context/AppContext";
 
 const Navbar = () => {
 	const navigate = useNavigate();
-	const { setShowSideBar, totalQuantity, isLoggedIn, user } = useApp();
+	const {
+		setShowSideBar,
+		totalQuantity,
+		isLoggedIn,
+		user,
+		handleLogout,
+		setShowDropdown,
+		showDropdown,
+	} = useApp();
 	console.log(user);
 
 	return (
@@ -57,10 +65,32 @@ const Navbar = () => {
 				</Link>
 
 				{isLoggedIn ? (
-					<div className="flex items-center justify-center bg-gray-200 w-8 h-8 rounded-full">
-						<p className="text-gray-800 text-sm font-medium">
-							{user?.firstName[0] + user?.lastName[0]}
-						</p>
+					<div className="relative" onClick={(e) => e.stopPropagation()}>
+						{/* Initials Circle */}
+						<div
+							onClick={() => setShowDropdown(!showDropdown)}
+							className="flex items-center justify-center bg-gray-200 w-8 h-8 rounded-full cursor-pointer"
+						>
+							<p className="text-gray-800 text-sm font-medium">
+								{user?.firstName?.[0] || ""}
+								{user?.lastName?.[0] || ""}
+							</p>
+						</div>
+
+						{/* Dropdown Menu */}
+						{showDropdown && (
+							<div className="absolute top-10 z-50 right-0 bg-white border border-gray-200 px-4 py-2 rounded shadow-md">
+								<p className="text-gray-700 text-sm border-b border-gray-300 mb-1 cursor-pointer pb-1">
+									Profile
+								</p>
+								<p
+									onClick={handleLogout}
+									className="text-red-500 text-sm cursor-pointer hover:underline"
+								>
+									Logout
+								</p>
+							</div>
+						)}
 					</div>
 				) : (
 					<Link to="/login">

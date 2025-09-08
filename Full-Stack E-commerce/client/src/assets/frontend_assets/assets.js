@@ -72,8 +72,8 @@ import contact_img from "./contact_img.png";
 import razorpay_logo from "./razorpay_logo.png";
 import stripe_logo from "./stripe_logo.png";
 import cross_icon from "./cross_icon.png";
-import delete_icon from "./delete.png";
 import order_confirm_icon from "./check-mark.png";
+import abandoned_cart_icon from "./abandoned-cart.png";
 export const assets = {
 	logo,
 	hero_img,
@@ -93,8 +93,8 @@ export const assets = {
 	razorpay_logo,
 	stripe_logo,
 	cross_icon,
-	delete_icon,
 	order_confirm_icon,
+	abandoned_cart_icon,
 };
 
 export const products = [

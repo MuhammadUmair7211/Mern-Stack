@@ -21,18 +21,18 @@ import ViewOrders from "./adminPages/ViewOrders";
 import Orders from "./pages/Orders";
 import { Toaster } from "react-hot-toast";
 const App = () => {
-	const { showSideBar } = useApp();
+	const { showSideBar, setShowDropdown } = useApp();
 	const location = useLocation();
 	const showNavbar = location.pathname.includes("/admin");
 	useEffect(() => {
 		window.scrollTo(0, 0);
 	}, [location.pathname]);
 	return (
-		<div>
+		<div onClick={() => setShowDropdown(false)}>
 			{showSideBar && <Sidebar />}
 			{!showSideBar && (
 				<>
-					<Toaster position="top-right" />
+					<Toaster />
 					{!showNavbar && <Navbar />}
 					<Routes>
 						<Route path="/" element={<Home />} />

@@ -35,13 +35,16 @@ const Login = () => {
 
 			if (data.success) {
 				toast.success(data.message);
-				setIsLoggedIn(true);
-				setUser({
+				const newUser = {
 					firstName: data.user.firstName,
 					lastName: data.user.lastName,
 					emailAddress: data.user.emailAddress,
-				});
-				
+				};
+				setIsLoggedIn(true);
+				setUser(newUser);
+				localStorage.setItem("token", data.token);
+				localStorage.setItem("user", JSON.stringify(newUser));
+				setToken(data.token);
 				if (isLoginPage) {
 					navigate("/");
 				}

@@ -6,7 +6,16 @@ const Cart = () => {
 	const { cartItems, removeFromCart, setCartItems } = useApp();
 	if (!cartItems || cartItems.length === 0) {
 		return (
-			<h2 className="text-center mt-10 text-red-500">Your Cart is Empty</h2>
+			<div className="flex items-center justify-center px-4 sm:px-[5vw] md:px-[7vw] lg:px-[9vw] min-h-[calc(100vh-400px)]">
+				<div className="flex flex-col items-center gap-4">
+					<img
+						src={assets.abandoned_cart_icon}
+						alt="empty-cart"
+						className="w-84"
+					/>
+					<h2 className="text-red-500">Your Cart is Empty</h2>
+				</div>
+			</div>
 		);
 	}
 
