@@ -1,8 +1,9 @@
-import { Link } from "react-router-dom";
-import { products } from "../assets/frontend_assets/assets";
+import { useApp } from "../context/AppContext";
 import ProductItems from "./ProductItems";
 
 const RelatedProducts = ({ p }) => {
+	const { products } = useApp();
+
 	const relatedProducts = products.filter(
 		(product) => product.category === p.category
 	);

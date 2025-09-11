@@ -3,10 +3,12 @@ import CartTotal from "../components/CartTotal";
 import { useApp } from "../context/AppContext";
 
 const Cart = () => {
-	const { cartItems, removeFromCart, setCartItems } = useApp();
+	const { cartItems, removeFromCart, setCartItems, user } = useApp();
+	console.log(user);
+
 	if (!cartItems || cartItems.length === 0) {
 		return (
-			<div className="flex items-center justify-center px-4 sm:px-[5vw] md:px-[7vw] lg:px-[9vw] min-h-[calc(100vh-400px)]">
+			<div className="flex items-center justify-center px-4 sm:px-[5vw] md:px-[7vw] lg:px-[9vw] min-h-[calc(100vh-370px)]">
 				<div className="flex flex-col items-center gap-4">
 					<img
 						src={assets.abandoned_cart_icon}
@@ -20,7 +22,7 @@ const Cart = () => {
 	}
 
 	return (
-		<div className="px-4 sm:px-[5vw] md:px-[7vw] lg:px-[9vw] min-h-[calc(100vh-400px)]">
+		<div className="px-4 sm:px-[5vw] md:px-[7vw] lg:px-[9vw] min-h-[calc(100vh-370px)]">
 			<div className="flex flex-col items-start border-t border-gray-300 pt-6">
 				<p className="flex items-center gap-2 text-xl md:text-2xl">
 					<span className="text-gray-500">YOUR</span>
@@ -37,9 +39,9 @@ const Cart = () => {
 								key={index}
 								className="flex items-center justify-between gap-4 mt-4 border-t border-b border-gray-300 px-4 py-2"
 							>
-								<div className="flex items gap-4">
+								<div className="flex items-center gap-4">
 									<img
-										src={cartItem.newItem.image[0]}
+										src={cartItem.newItem.images[0]}
 										alt="product-image"
 										className="w-20"
 									/>
@@ -51,8 +53,8 @@ const Cart = () => {
 											<p className="text-sm text-gray-700">
 												${cartItem.newItem.price}
 											</p>
-											<p className="w-6 h-6 bg-gray-100 border border-gray-200 flex items-center justify-center">
-												M
+											<p className="w-10 h-8 bg-gray-100 border border-gray-200 flex items-center justify-center text-gray-500">
+												{cartItem.newItem.selectedSize}
 											</p>
 										</div>
 									</div>
@@ -85,8 +87,9 @@ const Cart = () => {
 							</div>
 						);
 					})}
+
+				<CartTotal />
 			</div>
-			<CartTotal />
 		</div>
 	);
 };

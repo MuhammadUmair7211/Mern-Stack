@@ -13,7 +13,6 @@ const Navbar = () => {
 		setShowDropdown,
 		showDropdown,
 	} = useApp();
-	console.log(user);
 
 	return (
 		<nav className="flex items-center justify-between px-4 sm:px-[5vw] md:px-[7vw] lg:px-[9vw] py-5">

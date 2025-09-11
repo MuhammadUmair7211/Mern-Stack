@@ -3,12 +3,18 @@ import { useApp } from "../context/AppContext";
 
 const Orders = () => {
 	const { orders } = useApp();
+	console.log(orders);
+
 	if (orders.length === 0) {
-		return <h2 className="text-center mt-10 text-gray-500">No orders yet</h2>;
+		return (
+			<div className="min-h-[calc(100vh-375px)] flex items-center justify-center">
+				<h2 className="text-center mt-10 text-gray-500">No orders yet</h2>
+			</div>
+		);
 	}
 
 	return (
-		<div className="px-4 sm:px-[5vw] md:px-[7vw] lg:px-[9vw]">
+		<div className="px-4 sm:px-[5vw] md:px-[7vw] lg:px-[9vw] min-h-[calc(100vh-375px)]">
 			{/* Heading */}
 			<div className="flex flex-col items-start border-t border-gray-300 py-6">
 				<p className="flex items-center gap-2 text-2xl">
@@ -33,7 +39,7 @@ const Orders = () => {
 									{/* Product Info */}
 									<div className="flex items-center gap-4">
 										<img
-											src={cartItem.newItem.image[0]}
+											src={cartItem.newItem.images[0]}
 											alt="product-image"
 											className="w-20"
 										/>

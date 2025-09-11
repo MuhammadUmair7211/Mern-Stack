@@ -1,17 +1,18 @@
 import { useParams } from "react-router-dom";
-import { assets, products } from "../assets/frontend_assets/assets";
+import { assets } from "../assets/frontend_assets/assets";
 import RelatedProducts from "../components/RelatedProducts";
 import { useApp } from "../context/AppContext";
 import { useEffect, useState } from "react";
 
 const Products = () => {
 	const { id } = useParams();
-	const { cartItemsHandle } = useApp();
+	const { cartItemsHandle, products } = useApp();
+	const [selectedSize, setSelectedSize] = useState("");
 
 	const product = products.find((p) => p._id === id);
-	const [selectedImage, setSelectedImage] = useState(product?.image[0]);
+	const [selectedImage, setSelectedImage] = useState(product?.images[0]);
 	useEffect(() => {
-		setSelectedImage(product.image[0]);
+		setSelectedImage(product?.images[0]);
 	}, [product]);
 
 	if (!product) {
@@ -21,14 +22,15 @@ const Products = () => {
 	}
 	const handleFormSubmit = (e) => {
 		e.preventDefault();
-		cartItemsHandle(product);
+		if (!selectedSize) return;
+		cartItemsHandle({ ...product, selectedSize });
 	};
 	return (
 		<div className="px-4 sm:px-[5vw] md:px-[7vw] lg:px-[9vw] mb-10">
 			<div className="flex flex-col md:flex-row items-start gap-6 border-t border-gray-200 pt-10">
 				{/* ✅ Thumbnail images (left side on desktop) */}
 				<div className="flex flex-col gap-4 w-[100px]">
-					{product.image.map((img, index) => {
+					{product.images.map((img, index) => {
 						return (
 							<img
 								key={index}
@@ -94,6 +96,7 @@ const Products = () => {
 												name="product-size"
 												value={size}
 												required
+												onChange={() => setSelectedSize(size)}
 												className="absolute opacity-0 peer"
 											/>
 											<span className="peer-checked:bg-black peer-checked:text-white peer-checked:border-black w-full h-full flex items-center justify-center rounded">

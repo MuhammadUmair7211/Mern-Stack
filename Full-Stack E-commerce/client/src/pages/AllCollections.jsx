@@ -15,7 +15,7 @@ const AllCollections = () => {
 	} = useApp();
 
 	return (
-		<div className="px-4 sm:px-[5vw] md:px-[7vw] lg:px-[9vw]">
+		<div className="px-4 sm:px-[5vw] md:px-[7vw] lg:px-[9vw] min-h-[calc(100vh-370px)]">
 			{showSearchBar && (
 				<div className="bg-gray-100 border-b border-gray-300 border-t py-6">
 					<div className="flex items-center justify-center">

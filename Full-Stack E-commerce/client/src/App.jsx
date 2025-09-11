@@ -20,6 +20,7 @@ import PlaceOrder from "./pages/PlaceOrder";
 import ViewOrders from "./adminPages/ViewOrders";
 import Orders from "./pages/Orders";
 import { Toaster } from "react-hot-toast";
+import ProtectedRoute from "./adminPages/ProtectedRoute";
 const App = () => {
 	const { showSideBar, setShowDropdown } = useApp();
 	const location = useLocation();
@@ -46,13 +47,20 @@ const App = () => {
 						<Route path="/all-collections" element={<AllCollections />} />
 						<Route path="/place-order" element={<PlaceOrder />} />
 						<Route path="/orders" element={<Orders />} />
-						<Route path="/admin" element={<Layout />}>
+						<Route
+							path="/admin"
+							element={
+								<ProtectedRoute>
+									<Layout />
+								</ProtectedRoute>
+							}
+						>
 							<Route index element={<AddItems />} />
-							<Route path="/admin/list-items" element={<ListItems />} />
-							<Route path="/admin/view-orders" element={<ViewOrders />} />
+							<Route path="list-items" element={<ListItems />} />
+							<Route path="view-orders" element={<ViewOrders />} />
 						</Route>
 					</Routes>
-					<Footer />
+					{!showNavbar && <Footer />}
 				</>
 			)}
 		</div>

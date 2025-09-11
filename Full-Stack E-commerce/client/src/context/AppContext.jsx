@@ -1,5 +1,5 @@
 import { createContext, useContext, useEffect, useState } from "react";
-import { products } from "../assets/frontend_assets/assets";
+// import { products } from "../assets/frontend_assets/assets";
 import { useLocation, useNavigate } from "react-router-dom";
 
 const AppContext = createContext();
@@ -16,12 +16,29 @@ const AppProvider = ({ children }) => {
 	const [selectedFilters, setSelectedFilters] = useState({});
 	const [filterByPrice, setFilterByPrice] = useState();
 	const [isLoggedIn, setIsLoggedIn] = useState(false);
-	const [user, setUser] = useState({});
+	const [user, setUser] = useState(null);
 	const [token, setToken] = useState(null);
 	const [showDropdown, setShowDropdown] = useState(false);
+	const [adminEmail, setAdminEmail] = useState(null);
+	const [products, setProducts] = useState([]);
+
 	const isCartPage = location.pathname === "/cart";
 	const buttonText = isCartPage ? "Proceed to Checkout" : " Place Order";
 	const totalQuantity = cartItems.reduce((acc, item) => acc + item.quantity, 0);
+	const fetchProducts = async () => {
+		const res = await fetch("http://localhost:3000/api/products", {
+			method: "GET",
+		});
+		const data = await res.json();
+		setProducts(data.allProducts);
+	};
+	useEffect(() => {
+		fetchProducts();
+	}, []);
+	useEffect(() => {
+		const email = localStorage.getItem("admin");
+		setAdminEmail(email);
+	}, [adminEmail]);
 	useEffect(() => {
 		const storedToken = localStorage.getItem("token");
 		const storedUser = JSON.parse(localStorage.getItem("user"));
@@ -115,8 +132,6 @@ const AppProvider = ({ children }) => {
 		} else {
 			const newOrder = { id: Date.now(), items: cartItems };
 			setOrders((prev) => [...prev, newOrder]);
-			console.log(orders);
-
 			clearCart();
 			navigate("/orders");
 		}
@@ -163,6 +178,10 @@ const AppProvider = ({ children }) => {
 		setShowDropdown,
 		showDropdown,
 		handleLogout,
+		setAdminEmail,
+		adminEmail,
+		products,
+		fetchProducts,
 	};
 	return <AppContext.Provider value={value}>{children}</AppContext.Provider>;
 };

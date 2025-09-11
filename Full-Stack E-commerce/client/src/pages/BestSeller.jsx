@@ -1,7 +1,8 @@
-import { products } from "../assets/frontend_assets/assets";
 import ProductItems from "../components/ProductItems";
+import { useApp } from "../context/AppContext";
 
 const BestSeller = () => {
+	const { products } = useApp();
 	const bestSeller = products.filter((p) => p.bestseller);
 	return (
 		<div className="px-4 sm:px-[5vw] md:px-[7vw] lg:px-[9vw]">

@@ -1,4 +1,3 @@
-import Footer from "../components/Footer";
 import Hero from "../components/Hero";
 import Subscription from "../components/Subscription";
 import Title from "../components/Title";

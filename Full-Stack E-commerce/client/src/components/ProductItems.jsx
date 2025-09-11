@@ -5,7 +5,7 @@ const ProductItems = ({ product }) => {
 		<Link to={`/products/${product._id}`}>
 			<div className="overflow-hidden">
 				<img
-					src={product.image[0]}
+					src={product?.images[0]}
 					alt="product-image"
 					className="hover:scale-110 duration-500 ease-in-out cursor-pointer"
 				/>
