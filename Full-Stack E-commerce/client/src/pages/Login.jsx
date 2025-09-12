@@ -1,8 +1,10 @@
 import { useState } from "react";
 import { useApp } from "../context/AppContext";
 import toast from "react-hot-toast";
-
+import { FaEyeSlash } from "react-icons/fa6";
+import { FaEye } from "react-icons/fa6";
 const Login = () => {
+	const [inputType, setInputType] = useState(false);
 	const {
 		isLoginPage,
 		setIsLoginPage,
@@ -31,7 +33,6 @@ const Login = () => {
 			});
 
 			const data = await res.json();
-			console.log(data);
 
 			if (data.success) {
 				toast.success(data.message);
@@ -64,64 +65,128 @@ const Login = () => {
 	};
 
 	return (
-		<div className="min-h-[calc(100vh-400px)] flex items-center justify-center px-4">
-			<div className="w-full max-w-md bg-white shadow p-6">
+		<div className="min-h-[calc(100vh-375px)] flex items-center justify-center px-4">
+			<div className="w-full max-w-md bg-white p-6">
 				<p className="text-gray-700 text-xl md:text-2xl after:content-[''] after:h-[1.5px] after:bg-gray-600 font-prata after:block after:w-12 flex items-center gap-2 my-4">
 					{isLoginPage ? "Login" : "Sign Up"}
 				</p>
-				<form onSubmit={handleFormSubmit} className="flex flex-col gap-2">
+				<form onSubmit={handleFormSubmit} className="flex flex-col gap-4">
 					{!isLoginPage && (
 						<>
-							<div>
+							<div className="relative mt-2">
 								<input
 									type="text"
-									placeholder="First Name"
+									id="first-name"
 									required
+									placeholder=" "
 									value={formData.firstName}
 									onChange={(e) =>
 										setFormData({ ...formData, firstName: e.target.value })
 									}
-									className="w-full outline-none border border-gray-300 p-2"
+									className="peer w-full outline-none border border-gray-300 p-2"
 								/>
+								<label
+									htmlFor="first-name"
+									className={`absolute left-2 transition-all duration-300 
+      text-gray-500 text-sm ${
+				formData.firstName
+					? "-top-3 text-black/50 bg-white px-2 py-0"
+					: "top-3 text-gray-400 peer-focus:-top-3 peer-focus:text-black/50 peer-focus:bg-white peer-focus:px-2 peer-focus:py-0"
+			}`}
+								>
+									First Name
+								</label>
 							</div>
-							<div>
+							<div className="relative">
 								<input
 									type="text"
-									placeholder="Last Name"
+									id="last-name"
 									required
+									placeholder=" "
 									value={formData.lastName}
 									onChange={(e) =>
 										setFormData({ ...formData, lastName: e.target.value })
 									}
-									className="w-full outline-none border border-gray-300 p-2"
+									className="peer w-full outline-none border border-gray-300 p-2"
 								/>
+								<label
+									htmlFor="last-name"
+									className={`absolute left-2 transition-all duration-300 
+      text-gray-500 text-sm ${
+				formData.lastName
+					? "-top-3 text-black/50 bg-white px-2 py-0"
+					: "top-3 text-gray-400 peer-focus:-top-3 peer-focus:text-black/50 peer-focus:bg-white peer-focus:px-2 peer-focus:py-0"
+			}`}
+								>
+									Last Name
+								</label>
 							</div>
 						</>
 					)}
-					<div>
+					<div className="relative mt-2">
 						<input
 							type="email"
-							placeholder="Email"
+							id="email"
 							required
+							placeholder=" "
 							value={formData.emailAddress}
 							onChange={(e) =>
 								setFormData({ ...formData, emailAddress: e.target.value })
 							}
-							className="w-full outline-none border border-gray-300 p-2"
+							className="peer w-full outline-none border border-gray-300 p-2"
 						/>
+						<label
+							htmlFor="email"
+							className={`absolute left-2 transition-all duration-300 
+      text-gray-500 text-sm
+      ${
+				formData.emailAddress
+					? "-top-3 text-black/50 bg-white px-2 py-0"
+					: "top-3 text-gray-400 peer-focus:-top-3 peer-focus:text-black/50 peer-focus:bg-white peer-focus:px-2 peer-focus:py-0"
+			}`}
+						>
+							Email
+						</label>
 					</div>
-					<div className="">
+					<div className="relative">
 						<input
-							type="password"
-							placeholder="Password"
+							className="peer flex-1 outline-none w-full border border-gray-300 p-2"
+							type={inputType ? "text" : "password"}
+							id="password"
+							placeholder=" "
 							required
 							value={formData.password}
 							onChange={(e) =>
 								setFormData({ ...formData, password: e.target.value })
 							}
-							className="w-full outline-none border border-gray-300 p-2"
 						/>
+
+						<label
+							htmlFor="password"
+							className={`absolute left-2 transition-all duration-300 
+      text-gray-500 text-sm
+      ${
+				formData.password
+					? "-top-3 text-black/50 bg-white px-2 py-0"
+					: "top-3 text-gray-400 peer-focus:-top-3 peer-focus:text-black/50 peer-focus:bg-white peer-focus:px-2 peer-focus:py-0"
+			}`}
+						>
+							Password
+						</label>
+
+						{inputType ? (
+							<FaEye
+								className="absolute right-3 top-3 cursor-pointer text-xl text-gray-600"
+								onClick={() => setInputType(false)}
+							/>
+						) : (
+							<FaEyeSlash
+								className="absolute right-3 top-3 cursor-pointer text-xl text-gray-600"
+								onClick={() => setInputType(true)}
+							/>
+						)}
 					</div>
+
 					<div className="flex items-center justify-between">
 						<p className="text-sm text-gray-500">Forgot your password?</p>
 						<p
