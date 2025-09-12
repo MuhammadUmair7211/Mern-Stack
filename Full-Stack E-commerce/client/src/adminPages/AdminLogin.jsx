@@ -37,13 +37,10 @@ const AdminLogin = () => {
 		<div className="flex items-center justify-center h-screen">
 			<form
 				onSubmit={handleFormSubmit}
-				className="max-w-md w-full shadow-[0_0_5px_0] px-4 py-6"
+				className="max-w-md w-full flex flex-col gap-4 shadow-[0_0_5px_0] px-4 py-6"
 			>
-				<h1 className="text-xl font-semibold my-2">Admin Panel</h1>
-				<div>
-					<label htmlFor="email" className="block text-gray-700 mb-2">
-						Email Address
-					</label>
+				<h1 className="text-xl font-semibold">Admin Panel</h1>
+				<div className="relative">
 					<input
 						type="email"
 						id="email"
@@ -52,28 +49,47 @@ const AdminLogin = () => {
 						onChange={(e) =>
 							setFormData({ ...formData, adminEmail: e.target.value })
 						}
-						className="w-full border border-gray-200 p-2 outline-none mb-1"
-						placeholder="enter admin email"
+						className="peer w-full border border-gray-200 p-2 outline-none mb-1"
 					/>
+					<label
+						htmlFor="email"
+						className={`absolute left-2 transition-all duration-300 
+      text-gray-500 text-sm ${
+				formData.adminEmail
+					? "-top-3 text-black/50 bg-white px-2 py-0"
+					: "top-3 text-gray-400 peer-focus:-top-3 peer-focus:text-black/50 peer-focus:bg-white peer-focus:px-2 peer-focus:py-0"
+			}`}
+					>
+						Admin Email
+					</label>
 				</div>
-				<label htmlFor="password" className="block text-gray-700 mb-2">
-					Password
-				</label>
-				<input
-					type="password"
-					id="password"
-					required
-					value={formData.adminPassword}
-					onChange={(e) =>
-						setFormData({ ...formData, adminPassword: e.target.value })
-					}
-					className="w-full border border-gray-200 p-2 outline-none"
-					placeholder="enter admin password"
-				/>
+				<div className="relative">
+					<input
+						type="password"
+						id="password"
+						required
+						value={formData.adminPassword}
+						onChange={(e) =>
+							setFormData({ ...formData, adminPassword: e.target.value })
+						}
+						className="peer w-full border border-gray-200 p-2 outline-none"
+					/>
+					<label
+						htmlFor="password"
+						className={`absolute left-2 transition-all duration-300 
+      text-gray-500 text-sm ${
+				formData.adminPassword
+					? "-top-3 text-black/50 bg-white px-2 py-0"
+					: "top-3 text-gray-400 peer-focus:-top-3 peer-focus:text-black/50 peer-focus:bg-white peer-focus:px-2 peer-focus:py-0"
+			}`}
+					>
+						Admin Password
+					</label>
+				</div>
 				<div>
 					<button
 						type="submit"
-						className="bg-black w-full text-white mt-4 py-2 cursor-pointer"
+						className="bg-black w-full text-white py-2 cursor-pointer"
 					>
 						Login
 					</button>

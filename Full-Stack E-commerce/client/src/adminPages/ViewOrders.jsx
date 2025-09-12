@@ -5,6 +5,7 @@ const formatCurrency = (v) =>
 
 const ViewOrders = () => {
 	const { orders = [], user } = useApp();
+
 	if (!Array.isArray(orders) || orders.length === 0) {
 		return (
 			<div className="px-4 py-8 text-center text-gray-600">
@@ -19,8 +20,6 @@ const ViewOrders = () => {
 
 			<div className="space-y-6">
 				{orders.map((order, orderIndex) => {
-					console.log(order);
-
 					const orderId = order?.id ?? order?._id ?? orderIndex;
 					const orderDate =
 						!isNaN(Number(orderId)) && Number(orderId) > 0
@@ -77,8 +76,9 @@ const ViewOrders = () => {
 							<div className="divide-y divide-gray-100">
 								{items.map((it, i) => {
 									const prod = it?.newItem ?? it;
-									const image = Array.isArray(prod?.image)
-										? prod.image[0]
+
+									const image = Array.isArray(prod?.images)
+										? prod.images[0]
 										: prod?.image;
 									const name = prod?.name ?? "Unknown product";
 									const category = prod?.category ?? prod?.subCategory ?? "";
@@ -94,7 +94,7 @@ const ViewOrders = () => {
 												<div className="w-12 h-12 rounded overflow-hidden bg-gray-50 flex-shrink-0">
 													{image ? (
 														<img
-															src={image}
+															src={it.newItem.images[0]}
 															alt={name}
 															className="w-full h-full object-cover"
 														/>
