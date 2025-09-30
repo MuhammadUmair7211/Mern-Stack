@@ -18,8 +18,8 @@ const Navigation = () => {
 	];
 
 	return (
-		<div className="bg-black lg:h-10 text-white text-sm overflow-x-auto">
-			<div className="flex items-center justify-around md:px-4 whitespace-nowrap ">
+		<div className="bg-gray-900 text-white text-sm overflow-x-auto">
+			<div className="flex items-center justify-around md:px-2 whitespace-nowrap ">
 				{links.map((link, index) => (
 					<NavLink
 						key={index}
@@ -27,7 +27,7 @@ const Navigation = () => {
 						end={link.path === "/"}
 						aria-label={link.name}
 						className={({ isActive }) =>
-							`uppercase px-4 py-2 md:font-bold hover:bg-gray-100 hover:text-[#66441a] hover:translate-x-2 duration-300 text-xs md:text-sm ${
+							`uppercase px-4 py-2 font-light lg:font-bold hover:bg-gray-100 hover:text-[#66441a] hover:translate-x-2 duration-300 text-xs md:text-sm ${
 								isActive
 									? "text-[#66441a] border-b border-[#66441a] bg-gray-100"
 									: "text-white"

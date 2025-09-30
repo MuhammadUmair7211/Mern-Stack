@@ -14,16 +14,3 @@ html {
 	width: 5px;
 	height: 8px;
 }
-
-::-webkit-scrollbar-track {
-	background: #49494827;
-}
-
-::-webkit-scrollbar-thumb {
-	background: #16181b;
-	border-radius: 9999px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-	background: #1f2937;
-}

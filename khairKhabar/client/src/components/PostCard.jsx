@@ -6,16 +6,16 @@ const PostCard = ({ post, index }) => {
 	return (
 		<div
 			key={post._id}
-			className="border-b flex flex-col border-gray-300 mb-4 pb-4 font-urdu leading-[3rem]"
+			className="border-b flex flex-col border-gray-300 mb-4 py-3 font-urdu leading-[3rem]"
 		>
 			{/* Title stays centered */}
-			<h1 className="font-bold text-center text-2xl">
+			<h1 className="lg:font-bold text-center text-2xl">
 				{post.title} # <span>{index + 1}</span>
 			</h1>
 
 			{/* Content */}
 			<p
-				className={`mt-4 text-right ${
+				className={`mt-4 text-justify ${
 					post.category === "poetry" ? "max-w-[250px] ml-auto" : ""
 				}`}
 			>
@@ -34,7 +34,7 @@ const PostCard = ({ post, index }) => {
 			)}
 
 			{/* Author and date */}
-			<p className="mt-2">{post.author} ---</p>
+			<p>{post.author} ---</p>
 			<p className="text-xs text-gray-700">{post.date}</p>
 			<div className="mt-4">
 				<button

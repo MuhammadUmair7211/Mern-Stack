@@ -10,6 +10,7 @@ const AppProvider = ({ children }) => {
 	const [posts, setPosts] = useState(dummyPosts);
 	const [followers, setFollowers] = useState(dummyFollowers);
 	const [filter, setFilter] = useState("");
+	const [showSideBar, setShowSideBar] = useState(false);
 	const [user, setUser] = useState({
 		_id: "1",
 		name: "Muhammad Umair",
@@ -41,7 +42,7 @@ const AppProvider = ({ children }) => {
 	};
 
 	const phrase =
-		"A website to deliver Education, Entertainment and Information Altogether !";
+		"ایک ایسی ویب سائٹ جو تعلیم، تفریح اور معلومات سب ایک جگہ فراہم کرے";
 
 	const value = {
 		posts,
@@ -57,6 +58,8 @@ const AppProvider = ({ children }) => {
 		user,
 		setUser,
 		toggleLike,
+		showSideBar,
+		setShowSideBar,
 	};
 	return <AppContext.Provider value={value}>{children}</AppContext.Provider>;
 };

@@ -12,17 +12,24 @@ const RightSide = () => {
 	];
 
 	return (
-		<div className="flex flex-col items-center">
+		<div className="flex flex-col items-center font-urdu">
 			<div className="w-full mb-4 text-center space-y-1">
-				<h2 className="text-sm my-2 text-gray-500">Recently uploaded posts</h2>
+				<h2 className="text-sm my-4 font-semibold text-black ">
+					حال ہی میں اپ لوڈ کی گئی پوسٹس
+				</h2>
 				<RecentPosts />
 			</div>
 			<div className="w-full mb-4 text-center space-y-1">
-				<h2 className="text-sm my-2 text-gray-500">Popular Posts</h2>
+				<h2 className="text-sm my-6 text-center font-semibold text-black">
+					مقبول پوسٹس
+				</h2>
 				<PopularPosts />
 			</div>
 			<div className="w-full mb-4 text-center  space-y-1">
-				<h2 className="text-sm my-2 text-gray-500">Popular Urdu Names</h2>
+				<h2 className="text-sm my-4 font-semibold text-black">
+					مقبول اردو نام
+				</h2>
+
 				{names.map((name) => {
 					return (
 						<div

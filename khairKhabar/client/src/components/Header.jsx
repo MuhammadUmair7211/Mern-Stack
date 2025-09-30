@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import { assets } from "../assets/assets";
 
 const Header = () => {
 	const [dateTime, setDateTime] = useState(new Date());
@@ -25,10 +24,7 @@ const Header = () => {
 		day: "numeric",
 	});
 	return (
-		<div
-			style={{ backgroundImage: `url(${assets.headerBg})` }}
-			className="bg-repeat bg-contain lg:h-10 text-white text-xs py-1 w-full flex flex-col items-center"
-		>
+		<div className="bg-blue-500 text-white text-xs py-1 w-full flex flex-col items-center justify-center">
 			<span>{gregorian}</span>
 			<span>{islamic}</span>
 		</div>

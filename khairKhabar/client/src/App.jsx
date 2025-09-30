@@ -6,7 +6,6 @@ import Poetry from "./pages/Poetry";
 import Prose from "./pages/Prose";
 import Humor from "./pages/Humor";
 import Fiction from "./pages/Fiction";
-import Analysis from "./pages/Analysis";
 import About from "./pages/About";
 import PersonalBlog from "./pages/PersonalBlog";
 import CharacterSketch from "./pages/CharacterSketch";
@@ -24,17 +23,61 @@ import AllPosts from "./pages/admin/AllPosts";
 import AddNewPost from "./pages/admin/AddNewPost";
 import EditPost from "./pages/admin/EditPost";
 import Posts from "./pages/Posts";
+
+import { RiArrowLeftSFill } from "react-icons/ri";
+import { useApp } from "./contexts/AppContext";
+import RecentPosts from "./pages/RecentPosts";
+import PopularPosts from "./pages/PopularPosts";
 const App = () => {
 	const { pathname } = useLocation();
 	const isAdminPath = pathname.includes("/admin");
+	const { setShowSideBar, showSideBar, navigate } = useApp();
 	return (
 		<div>
 			{!isAdminPath && (
-				<>
+				<div className="fixed top-0 w-full z-100">
 					<Header />
 					<Navigation />
 					<Navbar />
-				</>
+				</div>
+			)}
+			{/* Sidebar toggle icon */}
+			<div
+				onClick={(e) => e.stopPropagation()}
+				className="lg:hidden fixed top-36 -right-2 z-50"
+			>
+				<p
+					onClick={() => setShowSideBar(!showSideBar)}
+					className="text-xs font-light flex items-center text-blue-500 underline animate-pulse duration-1000 cursor-pointer"
+				>
+					useful <br /> links
+					<RiArrowLeftSFill className="text-2xl" />
+				</p>
+			</div>
+			{/* Sidebar */}
+			{showSideBar && (
+				<div
+					onClick={(e) => e.stopPropagation()}
+					className="flex flex-col space-y-6 lg:hidden fixed top-44 right-2 w-64 p-4 bg-blue-500 text-white shadow-lg rounded-md z-40 font-urdu text-center font-semibold"
+				>
+					<div>
+						<h2 className="text-sm my-4  text-black ">
+							حال ہی میں اپ لوڈ کی گئی پوسٹس
+						</h2>
+
+						<RecentPosts />
+					</div>
+					<div>
+						<h2 className="text-sm my-6 text-center text-black">مقبول پوسٹس</h2>
+						<PopularPosts />
+					</div>
+					<button
+						onClick={() => navigate("/admin-login")}
+						className="bg-transparent px-2 lg:px-5 py-2 rounded-full border border-gray-600 text-gray-800 hover:bg-gray-900 hover:text-white hover:border-gray-900  duration-300 cursor-pointer text-xs"
+					>
+						Admin Dashboard
+					</button>
+				</div>
 			)}
 			<Routes>
 				<Route path="/" element={<Home />}>
@@ -49,7 +92,6 @@ const App = () => {
 					<Route path="prose" element={<Prose />} />
 					<Route path="humor" element={<Humor />} />
 					<Route path="fiction" element={<Fiction />} />
-					<Route path="analysis" element={<Analysis />} />
 					<Route path="character-sketches" element={<CharacterSketch />} />
 					<Route path="pakistan" element={<Pakistan />} />
 					<Route path="about" element={<About />} />
