@@ -1,4 +1,4 @@
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 import { dummyPosts, dummyFollowers } from "../assets/assets";
 import { useLocation, useNavigate } from "react-router-dom";
 
@@ -11,11 +11,22 @@ const AppProvider = ({ children }) => {
 	const [followers, setFollowers] = useState(dummyFollowers);
 	const [filter, setFilter] = useState("");
 	const [showSideBar, setShowSideBar] = useState(false);
+	const [hadith, setHadith] = useState(null);
+
 	const [user, setUser] = useState({
 		_id: "1",
 		name: "Muhammad Umair",
 	});
-
+	useEffect(() => {
+		fetch(
+			"https://hadithapi.com/api/hadiths?apiKey=$2y$10$5wzkFmg8nxq4k2sFJeBNHoO3hLz7CTdF4rpMMCfcEVhsxEg05e&language=urdu"
+		)
+			.then((res) => res.json())
+			.then((data) => {
+				const hadithsData = data.hadiths.data;
+				setHadith(hadithsData);
+			});
+	}, []);
 	const filteredByDate = (date) => {
 		if (!date) return posts;
 		const newDate = new Date(date);
@@ -24,6 +35,7 @@ const AppProvider = ({ children }) => {
 		);
 	};
 	const filteredPosts = filteredByDate(filter);
+
 	const { pathname } = useLocation();
 	const toggleLike = (postId) => {
 		setPosts((prevPosts) => {
@@ -60,6 +72,8 @@ const AppProvider = ({ children }) => {
 		toggleLike,
 		showSideBar,
 		setShowSideBar,
+		hadith,
+		setHadith,
 	};
 	return <AppContext.Provider value={value}>{children}</AppContext.Provider>;
 };

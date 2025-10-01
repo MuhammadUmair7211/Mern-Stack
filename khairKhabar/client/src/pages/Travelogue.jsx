@@ -2,17 +2,24 @@ import PostCard from "../components/PostCard";
 import { useApp } from "../contexts/AppContext";
 
 const Travelogue = () => {
-	const { posts } = useApp();
+	const { filteredPosts } = useApp();
 
-	const filteredTravelogues = posts.filter(
+	const filteredTravelogues = filteredPosts.filter(
 		(post) => post.category.toLowerCase() === "travelogue"
 	);
 
 	return (
 		<div>
-			{filteredTravelogues.map((post, index) => {
-				return <PostCard key={post._id} post={post} index={index} />;
-			})}
+			{filteredTravelogues.length > 0 ? (
+				filteredPosts.map((post, index) => (
+					<PostCard key={post._id} post={post} index={index} />
+				))
+			) : (
+				<div className="flex flex-col items-center justify-center text-gray-500 mt-6">
+					<span className="text-3xl mb-2">📅</span>
+					<p className="text-sm">No posts available for this date</p>
+				</div>
+			)}
 		</div>
 	);
 };

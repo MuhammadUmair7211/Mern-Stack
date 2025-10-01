@@ -28,6 +28,7 @@ import { RiArrowLeftSFill } from "react-icons/ri";
 import { useApp } from "./contexts/AppContext";
 import RecentPosts from "./pages/RecentPosts";
 import PopularPosts from "./pages/PopularPosts";
+import HadithDetails from "./pages/HadithDetails";
 const App = () => {
 	const { pathname } = useLocation();
 	const isAdminPath = pathname.includes("/admin");
@@ -95,6 +96,7 @@ const App = () => {
 					<Route path="character-sketches" element={<CharacterSketch />} />
 					<Route path="pakistan" element={<Pakistan />} />
 					<Route path="about" element={<About />} />
+					<Route path="hadith-details/:id" element={<HadithDetails />} />
 					<Route path="posts/:id" element={<Posts />} />
 				</Route>
 

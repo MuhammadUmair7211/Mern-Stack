@@ -4,7 +4,7 @@ const LeftSide = () => {
 	const { followers, filter, setFilter, navigate } = useApp();
 
 	return (
-		<div className="p-4 bg-amber-200 hidden lg:flex flex-col items-center justify-around">
+		<div className="p-4 bg-[#222222] text-white hidden lg:flex flex-col items-center justify-around">
 			<div className="w-28 h-28 rounded-full bg-gray-200 flex items-center justify-center">
 				<svg
 					className="w-15 h-15 text-gray-600"
@@ -26,7 +26,7 @@ const LeftSide = () => {
 				{/* Secondary Button */}
 				<button
 					onClick={() => navigate("/admin-login")}
-					className="bg-transparent px-2 lg:px-5 py-2 rounded-full border border-gray-600 text-gray-800 hover:bg-gray-900 hover:text-white hover:border-gray-900  duration-300 cursor-pointer text-xs"
+					className="bg-[#FFAF53] px-2 lg:px-5 py-2 rounded-full border border-[#FFAF53] text-gray-800 hover:bg-gray-900 hover:text-white hover:border-gray-900  duration-300 cursor-pointer text-xs"
 				>
 					Admin Dashboard
 				</button>
@@ -61,7 +61,7 @@ const LeftSide = () => {
 					})}
 				</div>
 			</div>
-			<button className="bg-gray-500 text-white/70 px-4 py-2 text-sm rounded-md hover:bg-gray-600 hover:text-white cursor-pointer duration-300">
+			<button className="bg-[#EB0046] text-white px-4 py-2 text-sm rounded-md hover:bg-gray-600 hover:text-white cursor-pointer duration-300">
 				Follow <NavLink to="/">khairKhabar.com</NavLink>
 			</button>
 		</div>

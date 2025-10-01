@@ -24,7 +24,10 @@ const Header = () => {
 		day: "numeric",
 	});
 	return (
-		<div className="bg-blue-500 text-white text-xs py-1 w-full flex flex-col items-center justify-center">
+		<div
+			style={{background: "linear-gradient(90deg, #221d3c, #461f47) 0 0 no-repeat padding-box"}}
+			className=" text-white text-xs py-1 w-full flex flex-col items-center justify-center"
+		>
 			<span>{gregorian}</span>
 			<span>{islamic}</span>
 		</div>

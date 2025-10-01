@@ -6,6 +6,9 @@ body {
 .font-urdu {
 	font-family: "Noto Nastaliq Urdu", serif;
 }
+.font-arabic {
+	font-family: "Noto sans Arabic";
+}
 html {
 	scroll-behavior: smooth;
 }
