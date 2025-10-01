@@ -10,7 +10,7 @@ const Pakistan = () => {
 	return (
 		<div>
 			{filteredPakistan.length > 0 ? (
-				filteredPosts.map((post, index) => (
+				filteredPakistan.map((post, index) => (
 					<PostCard key={post._id} post={post} index={index} />
 				))
 			) : (

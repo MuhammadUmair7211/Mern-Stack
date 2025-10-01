@@ -11,7 +11,7 @@ const PersonalBlog = () => {
 	return (
 		<div>
 			{filteredPersonalBlogs.length > 0 ? (
-				filteredPosts.map((post, index) => (
+				filteredPersonalBlogs.map((post, index) => (
 					<PostCard key={post._id} post={post} index={index} />
 				))
 			) : (

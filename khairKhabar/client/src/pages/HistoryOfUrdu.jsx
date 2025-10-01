@@ -10,7 +10,7 @@ const HistoryOfUrdu = () => {
 	return (
 		<div>
 			{filteredHistory.length > 0 ? (
-				filteredPosts.map((post, index) => (
+				filteredHistory.map((post, index) => (
 					<PostCard key={post._id} post={post} index={index} />
 				))
 			) : (

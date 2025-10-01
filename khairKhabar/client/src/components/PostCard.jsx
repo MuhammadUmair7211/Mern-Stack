@@ -6,7 +6,7 @@ const PostCard = ({ post, index }) => {
 	return (
 		<div
 			key={post._id}
-			className=" border-b flex flex-col border-gray-300 mb-4 py-3 font-urdu leading-[3rem]"
+			className="border-b flex flex-col border-gray-300 mb-4 py-3 font-urdu leading-[3rem]"
 		>
 			{/* Title stays centered */}
 			<h1 className="lg:font-bold text-center text-2xl">

@@ -2,24 +2,24 @@ import { NavLink } from "react-router-dom";
 
 const Navigation = () => {
 	const links = [
-		{ name: "Home", path: "/" },
-		{ name: "Personal Blog", path: "/personal-blog" },
-		{ name: "Poetry", path: "/poetry" },
-		{ name: "Travelogues", path: "/travelogues" },
-		{ name: "Literary Criticism", path: "/literary-criticism" },
-		{ name: "Prose", path: "/prose" },
-		{ name: "Humor & Satire", path: "/humor" },
-		{ name: "Fiction", path: "/fiction" },
-		{ name: "Learn Urdu", path: "/learn-urdu" },
-		{ name: "History of Urdu", path: "/history-of-urdu" },
-		{ name: "Idioms & Proverbs", path: "/idioms-proverbs" },
-		{ name: "Character Sketches", path: "/character-sketches" },
-		{ name: "Pakistan", path: "/pakistan" },
+		{ name: "صفحۂ اول", path: "/" },
+		{ name: "ذاتی بلاگ", path: "/personal-blog" },
+		{ name: "شاعری", path: "/poetry" },
+		{ name: "سفرنامے", path: "/travelogues" },
+		{ name: "ادبی تنقید", path: "/literary-criticism" },
+		{ name: "نثر", path: "/prose" },
+		{ name: "طنز و مزاح", path: "/humor" },
+		{ name: "افسانے", path: "/fiction" },
+		{ name: "اردو سیکھیں", path: "/learn-urdu" },
+		{ name: "اردو کی تاریخ", path: "/history-of-urdu" },
+		{ name: "محاورے و ضرب الامثال", path: "/idioms-proverbs" },
+		{ name: "کردار نگاری", path: "/character-sketches" },
+		{ name: "پاکستان", path: "/pakistan" },
 	];
 
 	return (
-		<div className="bg-gray-900 text-white text-sm overflow-x-auto">
-			<div className="flex items-center justify-around md:px-2 whitespace-nowrap ">
+		<div className="font-urdu bg-gray-900 text-white text-sm overflow-x-auto">
+			<div className="flex flex-row-reverse items-center justify-around md:px-2 whitespace-nowrap ">
 				{links.map((link, index) => (
 					<NavLink
 						key={index}

@@ -1,12 +1,19 @@
 import RecentPosts from "../pages/RecentPosts";
 import PopularPosts from "../pages/PopularPosts";
 import { useApp } from "../contexts/AppContext";
+import { useEffect, useState } from "react";
 
 const RightSide = () => {
 	const { hadith, navigate } = useApp();
 
+	const [index, setIndex] = useState(0);
+	useEffect(() => {
+		const today = new Date().getDate();
+		setIndex(today - 1);
+	}, [index]);
+
 	return (
-		<div className="p-4 bg-[#0181B0] hidden lg:flex flex-col items-center justify-around font-urdu">
+		<div className="p-4 bg-[#0181B0] hidden h-[86vh] lg:flex flex-col items-center justify-around font-urdu">
 			<div className="w-full mb-4 text-center">
 				<h2 className="text-sm my-4 font-semibold text-black ">
 					حال ہی میں اپ لوڈ کی گئی پوسٹس
@@ -20,13 +27,15 @@ const RightSide = () => {
 				<PopularPosts />
 			</div>
 
-			<div className="w-full mb-4 text-center space-y-2 rounded p-3">
+			<div className="w-full mb-4 text-center space-y-2 rounded p-3 ">
 				<h2 className="text-sm font-semibold text-black">روزانہ حدیث</h2>
 				{hadith ? (
 					<>
-						<p>{hadith[0].hadithUrdu}</p>
+						<p className="overflow-y-scroll cursor-pointer hover:text-white duration-300">
+							{hadith[index].hadithUrdu}
+						</p>
 						<button
-							onClick={() => navigate(`/hadith-details/${hadith[0].id}`)}
+							onClick={() => navigate(`/hadith-details/${hadith[index].id}`)}
 							className="cursor-pointer hover:text-white duration-300 font-semibold text-xs mt-1"
 						>
 							مزید پڑھیں

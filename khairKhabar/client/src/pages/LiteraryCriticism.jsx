@@ -10,7 +10,7 @@ const LiteraryCriticism = () => {
 	return (
 		<div>
 			{filteredCriticism.length > 0 ? (
-				filteredPosts.map((post, index) => (
+				filteredCriticism.map((post, index) => (
 					<PostCard key={post._id} post={post} index={index} />
 				))
 			) : (

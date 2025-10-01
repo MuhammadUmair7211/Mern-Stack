@@ -10,7 +10,7 @@ const Fiction = () => {
 	return (
 		<div>
 			{filteredFiction.length > 0 ? (
-				filteredPosts.map((post, index) => (
+				filteredFiction.map((post, index) => (
 					<PostCard key={post._id} post={post} index={index} />
 				))
 			) : (

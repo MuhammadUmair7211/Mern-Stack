@@ -11,7 +11,7 @@ const LearnUrdu = () => {
 	return (
 		<div>
 			{filteredGrammar.length > 0 ? (
-				filteredPosts.map((post, index) => (
+				filteredGrammar.map((post, index) => (
 					<PostCard key={post._id} post={post} index={index} />
 				))
 			) : (

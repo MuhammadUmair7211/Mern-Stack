@@ -10,7 +10,7 @@ const Humor = () => {
 	return (
 		<div>
 			{filteredHumor.length > 0 ? (
-				filteredPosts.map((post, index) => (
+				filteredHumor.map((post, index) => (
 					<PostCard key={post._id} post={post} index={index} />
 				))
 			) : (

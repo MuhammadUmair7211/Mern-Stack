@@ -11,7 +11,7 @@ const Prose = () => {
 	return (
 		<div>
 			{filteredProse.length > 0 ? (
-				filteredPosts.map((post, index) => (
+				filteredProse.map((post, index) => (
 					<PostCard key={post._id} post={post} index={index} />
 				))
 			) : (

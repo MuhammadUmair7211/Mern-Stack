@@ -11,7 +11,7 @@ const Travelogue = () => {
 	return (
 		<div>
 			{filteredTravelogues.length > 0 ? (
-				filteredPosts.map((post, index) => (
+				filteredTravelogues.map((post, index) => (
 					<PostCard key={post._id} post={post} index={index} />
 				))
 			) : (
