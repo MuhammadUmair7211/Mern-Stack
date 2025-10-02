@@ -1,15 +1,15 @@
 import { useEffect, useState } from "react";
 import { useApp } from "../../contexts/AppContext";
 import { useParams } from "react-router-dom";
+import toast from "react-hot-toast";
 
 const EditPost = () => {
-	const { posts, setPosts } = useApp();
+	const { posts, setPosts, navigate } = useApp();
 	const { id } = useParams();
 
 	const filteredPostById = posts.find(
 		(post) => String(post._id) === String(id)
 	);
-	console.log(filteredPostById);
 
 	const [formData, setFormData] = useState({
 		category: "",
@@ -38,15 +38,29 @@ const EditPost = () => {
 		}));
 	};
 
-	const handleSubmit = (e) => {
+	const handleSubmit = async (e) => {
 		e.preventDefault();
-		// Update post in context
+		const editedFormData = new FormData();
+		editedFormData.append("category", formData.category);
+		editedFormData.append("title", formData.title);
+		editedFormData.append("content", formData.content);
+		editedFormData.append("author", formData.author);
+		editedFormData.append("image", formData.image);
+		const res = await fetch(`http://localhost:3000/api/post/edit-post/${id}`, {
+			method: "PUT",
+			body: editedFormData,
+		});
+		const data = await res.json();
+		console.log(data);
+		if (data.success) {
+			toast.success(data.message);
+			navigate("/admin-layout");
+		} else {
+			toast.error(data.message);
+		}
 		setPosts((prevPosts) =>
-			prevPosts.map((p) =>
-				String(p._id) === String(id) ? { ...p, ...formData } : p
-			)
+			prevPosts.map((p) => (String(p._id) === String(id) ? data.post : p))
 		);
-		alert("Post updated successfully!");
 	};
 	if (!filteredPostById) {
 		return <p className="text-red-500">Post not found</p>;
@@ -54,7 +68,7 @@ const EditPost = () => {
 
 	return (
 		<div className="min-h-screen flex items-center justify-center bg-gray-100 font-urdu">
-			<div className="bg-white shadow-lg rounded-xl p-6 w-full max-w-7xl">
+			<div className="bg-white shadow-lg rounded-xl p-6 w-full max-w-screen-xl">
 				<h2 className="text-2xl font-bold text-gray-800 mb-4">Edit Post</h2>
 
 				<form
@@ -120,35 +134,45 @@ const EditPost = () => {
 						</div>
 
 						{/* Image Upload */}
-						<div>
+						<div className="mb-4">
 							<label className="block text-sm font-medium text-gray-700 mb-2">
 								Upload Image
 							</label>
 
 							{/* Preview */}
 							{formData.image && (
-								<div className="mb-3">
+								<div className="my-6">
 									<img
 										src={
 											typeof formData.image === "string"
-												? formData.image // existing image URL
-												: URL.createObjectURL(formData.image) // newly uploaded file
+												? formData.image
+												: URL.createObjectURL(formData.image)
 										}
 										alt="Post Preview"
-										className="w-96 object-cover rounded border"
+										className="w-full max-w-xl h-[30vh] object-center rounded-lg shadow-md duration-500 ease-in-out mx-auto animate-fadeIn hover:scale-105"
 									/>
 								</div>
 							)}
 
-							<input
-								type="file"
-								name="image"
-								accept="image/*"
-								onChange={handleChange}
-								className="mt-1 w-full text-sm text-gray-600 file:mr-4 file:py-2 file:px-4 
-               file:rounded-lg file:border-0 file:text-sm file:font-medium 
-               file:bg-gray-900 file:text-white hover:file:bg-gray-700"
-							/>
+							{/* Custom File Upload */}
+							<div className="relative flex items-center">
+								<label
+									htmlFor="imageUpload"
+									className="cursor-pointer inline-flex items-center justify-center 
+             px-5 py-2 rounded-lg bg-gray-900 text-white font-medium text-sm
+             shadow-md hover:bg-gray-700 transition-colors duration-300 ease-in-out"
+								>
+									📂 Choose Image
+								</label>
+								<input
+									id="imageUpload"
+									type="file"
+									name="image"
+									accept="image/*"
+									onChange={handleChange}
+									className="hidden"
+								/>
+							</div>
 						</div>
 					</div>
 
@@ -168,7 +192,7 @@ const EditPost = () => {
 					</div>
 
 					{/* Submit Button Full Width */}
-					<div className="md:col-span-2">
+					<div className="md:col-span-2 mt-4">
 						<button
 							type="submit"
 							className="w-full bg-gray-900 text-white py-3 rounded-lg hover:bg-white hover:text-black hover:border hover:border-gray-300 font-medium cursor-pointer duration-300"

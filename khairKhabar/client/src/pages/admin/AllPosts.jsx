@@ -4,26 +4,32 @@ const AllPosts = () => {
 	const { posts, setPosts, navigate } = useApp();
 
 	// Delete a post
-	const handleDelete = (post) => {
+	const handleDelete = async (post) => {
 		const result = window.confirm(
 			`Are you sure you want to delete "${post.title}"?`
 		);
 		if (!result) return;
+		const res = await fetch(
+			`http://localhost:3000/api/post/delete-post/${post._id}`,
+			{
+				method: "DELETE",
+			}
+		);
+		const data = await res.json();
+		console.log(data);
 		setPosts(posts.filter((p) => p._id !== post._id));
 	};
 
 	// Edit a post (for now just alert)
 	const handleEdit = (post) => {
-		alert(`Edit post: ${post.title}`);
 		navigate(`/admin-layout/edit-post/${post._id}`);
 	};
 
 	return (
 		<div className="bg-white shadow-lg rounded-xl p-6 font-urdu">
-			<h2 className="text-2xl font-bold mb-6 text-gray-800">All Posts</h2>
-
+			<h2 className="text-xl font-bold mb-4 text-gray-800">All Posts</h2>
 			<div className="overflow-x-auto rounded-lg border border-gray-200">
-				<table className="min-w-full text-sm text-gray-700 overflow-x-scroll">
+				<table className="min-w-full cursor-pointer text-sm text-gray-700 overflow-x-scroll">
 					<thead className="bg-gray-100 text-gray-600 uppercase text-xs">
 						<tr>
 							<th className="px-4 py-3 text-left hidden md:block">Image</th>

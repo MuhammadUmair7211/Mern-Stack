@@ -17,6 +17,21 @@ const AppProvider = ({ children }) => {
 		_id: "1",
 		name: "Muhammad Umair",
 	});
+	const fetchPosts = async () => {
+		try {
+			const res = await fetch("http://localhost:3000/api/post/get-all-posts", {
+				method: "GET",
+			});
+			const data = await res.json();
+			console.log(data);
+			setPosts(data.posts);
+		} catch (error) {
+			console.error(error.message);
+		}
+	};
+	useEffect(() => {
+		fetchPosts();
+	}, []);
 	useEffect(() => {
 		fetch(
 			"https://hadithapi.com/api/hadiths?apiKey=$2y$10$5wzkFmg8nxq4k2sFJeBNHoO3hLz7CTdF4rpMMCfcEVhsxEg05e&language=urdu"
@@ -30,8 +45,10 @@ const AppProvider = ({ children }) => {
 	const filteredByDate = (date) => {
 		if (!date) return posts;
 		const newDate = new Date(date);
+
 		return posts.filter(
-			(post) => new Date(post.date).toDateString() === newDate.toDateString()
+			(post) =>
+				new Date(post.createdAt).toDateString() === newDate.toDateString()
 		);
 	};
 	const filteredPosts = filteredByDate(filter);

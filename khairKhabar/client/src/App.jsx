@@ -23,7 +23,7 @@ import AllPosts from "./pages/admin/AllPosts";
 import AddNewPost from "./pages/admin/AddNewPost";
 import EditPost from "./pages/admin/EditPost";
 import Posts from "./pages/Posts";
-
+import { Toaster } from "react-hot-toast";
 import { RiArrowLeftSFill } from "react-icons/ri";
 import { useApp } from "./contexts/AppContext";
 import RecentPosts from "./pages/RecentPosts";
@@ -35,6 +35,7 @@ const App = () => {
 	const { setShowSideBar, showSideBar, navigate } = useApp();
 	return (
 		<div>
+			<Toaster position="top-right" reverseOrder={false} />
 			{!isAdminPath && (
 				<div className="fixed top-0 w-full z-100">
 					<Header />
@@ -43,18 +44,20 @@ const App = () => {
 				</div>
 			)}
 			{/* Sidebar toggle icon */}
-			<div
-				onClick={(e) => e.stopPropagation()}
-				className="lg:hidden fixed top-36 -right-2 z-50"
-			>
-				<p
-					onClick={() => setShowSideBar(!showSideBar)}
-					className="text-xs font-light flex items-center text-blue-500 underline animate-pulse duration-1000 cursor-pointer"
+			{!isAdminPath && (
+				<div
+					onClick={(e) => e.stopPropagation()}
+					className="lg:hidden fixed top-36 -right-2 z-50"
 				>
-					useful <br /> links
-					<RiArrowLeftSFill className="text-2xl" />
-				</p>
-			</div>
+					<p
+						onClick={() => setShowSideBar(!showSideBar)}
+						className="text-xs font-light flex items-center text-blue-500 underline animate-pulse duration-1000 cursor-pointer"
+					>
+						useful <br /> links
+						<RiArrowLeftSFill className="text-2xl" />
+					</p>
+				</div>
+			)}
 			{/* Sidebar */}
 			{showSideBar && (
 				<div

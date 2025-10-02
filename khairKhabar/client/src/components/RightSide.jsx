@@ -27,21 +27,16 @@ const RightSide = () => {
 				<PopularPosts />
 			</div>
 
-			<div className="w-full mb-4 text-center space-y-2 rounded p-3 ">
+			<div
+				title="click to read full details of hadith"
+				onClick={() => navigate(`/hadith-details/${hadith[index].id}`)}
+				className="w-full mb-4 text-center space-y-2 rounded p-3"
+			>
 				<h2 className="text-sm font-semibold text-black">روزانہ حدیث</h2>
 				{hadith ? (
-					<>
-						<p className="overflow-y-scroll cursor-pointer hover:text-white duration-300">
-							{hadith[index].hadithUrdu}
-						</p>
-						<button
-							onClick={() => navigate(`/hadith-details/${hadith[index].id}`)}
-							className="cursor-pointer hover:text-white duration-300 font-semibold text-xs mt-1"
-						>
-							مزید پڑھیں
-						</button>
-						<br />
-					</>
+					<p className="overflow-y-scroll h-[25vh] cursor-pointer hover:text-white duration-300">
+						{hadith[index].hadithUrdu}
+					</p>
 				) : (
 					<p>loading</p>
 				)}

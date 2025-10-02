@@ -35,11 +35,13 @@ const PostCard = ({ post, index }) => {
 
 			{/* Author and date */}
 			<p>{post.author} ---</p>
-			<p className="text-xs text-gray-700">{post.date}</p>
+			<p className="text-xs text-gray-700">
+				{new Date(post.createdAt).toLocaleDateString("en-GB")}
+			</p>
 			<div className="mt-4">
 				<button
 					onClick={() => toggleLike(post._id)}
-					className={`flex items-center gap-2 px-5 py-1 rounded-full cursor-pointer 
+					className={`flex border border-gray-300 items-center gap-2 px-5 py-1 rounded-full cursor-pointer 
       ${
 				post.likes.includes(user._id)
 					? "bg-blue-500 text-white hover:bg-blue-600 duration-200"

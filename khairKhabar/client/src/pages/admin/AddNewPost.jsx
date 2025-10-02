@@ -1,7 +1,7 @@
 import { useState } from "react";
+import toast from "react-hot-toast";
 
 const AddNewPost = () => {
-	const names = [1, 2, 3, 4, 5, 6];
 	const [formData, setFormData] = useState({
 		category: "",
 		title: "",
@@ -18,10 +18,36 @@ const AddNewPost = () => {
 		}));
 	};
 
-	const handleSubmit = (e) => {
+	const handleSubmit = async (e) => {
 		e.preventDefault();
-		console.log("Post Data:", formData);
-		alert("Post submitted successfully!");
+		const formDataToSend = new FormData();
+		formDataToSend.append("category", formData.category);
+		formDataToSend.append("title", formData.title);
+		formDataToSend.append("content", formData.content);
+		formDataToSend.append("author", formData.author);
+		formDataToSend.append("image", formData.image);
+		try {
+			const res = await fetch("http://localhost:3000/api/post/add-new-post", {
+				method: "POST",
+				body: formDataToSend,
+			});
+			const data = await res.json();
+			console.log(data);
+			if (data.success) {
+				toast.success(data.message);
+				setFormData({
+					content: "",
+					title: "",
+					category: "",
+					author: "",
+					image: "",
+				});
+			} else {
+				toast.error(data.message);
+			}
+		} catch (error) {
+			console.error(error.message);
+		}
 	};
 
 	return (
@@ -45,10 +71,11 @@ const AddNewPost = () => {
 							<input
 								type="text"
 								name="title"
+								required
 								placeholder="Enter post title"
 								value={formData.title}
 								onChange={handleChange}
-								className="mt-1 w-full px-4 py-2 rounded-lg border border-gray-300  outline-none text-sm"
+								className="w-full p-2 rounded-lg border border-gray-300 outline-none"
 							/>
 						</div>
 						{/* Category */}
@@ -60,7 +87,8 @@ const AddNewPost = () => {
 								name="category"
 								value={formData.category}
 								onChange={handleChange}
-								className="w-full p-2 rounded-lg border border-gray-300  outline-none text-sm"
+								required
+								className="w-full p-2 rounded-lg border border-gray-300 outline-none"
 							>
 								<option hidden>Select a category</option>
 								<option value="personal blog">Personal Blog</option>
@@ -80,67 +108,60 @@ const AddNewPost = () => {
 
 						{/* Author */}
 						<div>
-							<label className="block text-sm font-medium text-gray-700">
+							<label className="mb-2 block text-sm font-medium text-gray-700">
 								Author
 							</label>
 							<input
 								type="text"
 								name="author"
+								required
 								placeholder="Enter author name"
 								value={formData.author}
 								onChange={handleChange}
-								className="mt-1 w-full px-4 py-2 rounded-lg border border-gray-300  outline-none text-sm"
+								className="w-full p-2 rounded-lg border border-gray-300 outline-none"
 							/>
-						</div>
-						<div className="font-urdu grid grid-cols-1 md:grid-cols-3 gap-4">
-							{names.map((num) => (
-								<div key={num} className="flex items-center gap-3">
-									<label
-										htmlFor={`name-${num}`}
-										className="text-xs text-gray-600"
-									>
-										Name {num}:
-									</label>
-									<input
-										type="text"
-										id={`name-${num}`}
-										placeholder={`Enter ${num}`}
-										className="p-2 max-w-30 w-full border border-gray-300 text-xs rounded-md shadow-sm outline-none"
-									/>
-								</div>
-							))}
 						</div>
 
 						{/* Image Upload */}
-						<div>
+						<div className="mb-4">
 							<label className="block text-sm font-medium text-gray-700 mb-2">
 								Upload Image
 							</label>
 
 							{/* Preview */}
 							{formData.image && (
-								<div className="mb-3">
+								<div className="my-6">
 									<img
 										src={
 											typeof formData.image === "string"
-												? formData.image // existing image URL
-												: URL.createObjectURL(formData.image) // newly uploaded file
+												? formData.image
+												: URL.createObjectURL(formData.image)
 										}
 										alt="Post Preview"
-										className="w-70 object-cover rounded border"
+										className="w-full max-w-xl h-[30vh] object-center rounded-lg shadow-md duration-500 ease-in-out mx-auto animate-fadeIn hover:scale-105"
 									/>
 								</div>
 							)}
 
-							<input
-								type="file"
-								name="image"
-								accept="image/*"
-								onChange={handleChange}
-								className="mt-1 w-full text-sm text-gray-600 file:mr-4 file:py-2 file:px-4 
-               file:rounded-lg file:border-0 file:text-sm file:font-medium 
-               file:bg-gray-900 file:text-white hover:file:bg-gray-700"
-							/>
+							{/* Custom File Upload */}
+							<div className="relative flex items-center">
+								<label
+									htmlFor="imageUpload"
+									className="cursor-pointer inline-flex items-center justify-center 
+             px-5 py-2 rounded-lg bg-gray-900 text-white font-medium text-sm
+             shadow-md hover:bg-gray-700 transition-colors duration-300 ease-in-out"
+								>
+									📂 Choose Image
+								</label>
+								<input
+									id="imageUpload"
+									type="file"
+									name="image"
+									accept="image/*"
+									onChange={handleChange}
+									className="hidden"
+								/>
+							</div>
 						</div>
 					</div>
 
@@ -151,11 +172,12 @@ const AddNewPost = () => {
 						</label>
 						<textarea
 							name="content"
-							placeholder="Write your post content..."
+							placeholder="اپنی پوسٹ کا مواد یہاں لکھیں..."
 							rows="32"
 							value={formData.content}
+							required
 							onChange={handleChange}
-							className="mt-1 w-full px-4 py-3 rounded-lg border border-gray-300  outline-none text-sm resize-none"
+							className="mt-1 w-full px-4 py-3 rounded-lg border border-gray-300  outline-none text-sm resize-none text-right"
 						></textarea>
 					</div>
 
