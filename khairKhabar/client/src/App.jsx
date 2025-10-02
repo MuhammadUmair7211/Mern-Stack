@@ -29,6 +29,7 @@ import { useApp } from "./contexts/AppContext";
 import RecentPosts from "./pages/RecentPosts";
 import PopularPosts from "./pages/PopularPosts";
 import HadithDetails from "./pages/HadithDetails";
+import ChangeText from "./pages/admin/ChangeText";
 const App = () => {
 	const { pathname } = useLocation();
 	const isAdminPath = pathname.includes("/admin");
@@ -110,6 +111,7 @@ const App = () => {
 				<Route path="/admin-layout" element={<Layout />}>
 					<Route index element={<AllPosts />} />
 					<Route path="add-new-posts" element={<AddNewPost />} />
+					<Route path="change-text" element={<ChangeText />} />
 					<Route path="edit-post/:id" element={<EditPost />} />
 				</Route>
 			</Routes>

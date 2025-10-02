@@ -2,6 +2,7 @@ import { NavLink, Outlet } from "react-router-dom";
 import { MdOutlinePostAdd } from "react-icons/md";
 import { CiSignpostDuo1 } from "react-icons/ci";
 import { AiOutlineLogout } from "react-icons/ai";
+import { IoText } from "react-icons/io5";
 const Layout = () => {
 	const links = [
 		{
@@ -13,6 +14,11 @@ const Layout = () => {
 			name: "Add New Post",
 			path: "add-new-posts",
 			icon: <MdOutlinePostAdd className="text-xl lg:text-2xl" />,
+		},
+		{
+			name: "Change Floating Text",
+			path: "change-text",
+			icon: <IoText className="text-xl lg:text-2xl" />,
 		},
 		{
 			name: "Logout",
@@ -40,7 +46,7 @@ const Layout = () => {
 								}`
 							}
 						>
-							{link.icon} <span className="text-sm">{link.name}</span>
+							{link.icon} <span className="text-xs">{link.name}</span>
 						</NavLink>
 					))}
 				</nav>

@@ -3,7 +3,7 @@ import { assets } from "../assets/assets";
 import { useApp } from "../contexts/AppContext";
 
 const Navbar = () => {
-	const { phrase } = useApp();
+	const { text } = useApp();
 
 	return (
 		<nav className="bg-[#FFAF53] shadow-md w-full z-50">
@@ -22,7 +22,7 @@ const Navbar = () => {
 						scrollamount="3"
 						className="py-2 font-urdu"
 					>
-						{phrase}
+						{text}
 					</marquee>
 				</div>
 			</div>

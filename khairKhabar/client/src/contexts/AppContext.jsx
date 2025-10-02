@@ -12,7 +12,12 @@ const AppProvider = ({ children }) => {
 	const [filter, setFilter] = useState("");
 	const [showSideBar, setShowSideBar] = useState(false);
 	const [hadith, setHadith] = useState(null);
-
+	const [text, setText] = useState(() => {
+		return localStorage.getItem("text");
+	});
+	useEffect(() => {
+		localStorage.setItem("text", text);
+	}, [text]);
 	const [user, setUser] = useState({
 		_id: "1",
 		name: "Muhammad Umair",
@@ -70,13 +75,9 @@ const AppProvider = ({ children }) => {
 		});
 	};
 
-	const phrase =
-		"ایک ایسی ویب سائٹ جو تعلیم، تفریح اور معلومات سب ایک جگہ فراہم کرے";
-
 	const value = {
 		posts,
 		setPosts,
-		phrase,
 		followers,
 		setFollowers,
 		pathname,
@@ -91,6 +92,8 @@ const AppProvider = ({ children }) => {
 		setShowSideBar,
 		hadith,
 		setHadith,
+		text,
+		setText,
 	};
 	return <AppContext.Provider value={value}>{children}</AppContext.Provider>;
 };
