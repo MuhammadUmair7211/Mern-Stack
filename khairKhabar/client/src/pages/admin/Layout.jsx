@@ -30,8 +30,8 @@ const Layout = () => {
 	return (
 		<div className="flex min-h-screen bg-gray-100">
 			{/* Sidebar */}
-			<aside className="w-14 lg:w-64 bg-gray-900 text-white lg:p-6">
-				<h2 className="text-xs lg:text-2xl font-bold mb-10">Admin Panel</h2>
+			<aside className="w-10 lg:w-64 bg-gray-900 text-white lg:p-6">
+				<h2 className="hidden lg:text-2xl font-bold mb-10">Admin Panel</h2>
 				<nav className="hidden lg:flex flex-col gap-2">
 					{links.map((link, index) => (
 						<NavLink

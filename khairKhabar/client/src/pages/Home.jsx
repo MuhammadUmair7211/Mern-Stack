@@ -5,7 +5,7 @@ const Home = () => {
 	return (
 		<div className="max-w-screen-3xl mx-auto grid sm:grid-cols-1 lg:grid-cols-[1fr_3fr_1fr] mt-29 lg:h-[87vh]">
 			<LeftSide />
-			<div className="p-1 lg:p-2 lg:overflow-y-auto">
+			<div className="p-2 lg:overflow-y-auto">
 				<Outlet />
 			</div>
 			<div className="">

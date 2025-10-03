@@ -12,8 +12,28 @@ body {
 html {
 	scroll-behavior: smooth;
 }
-/* Custom Scrollbar */
+/* Scrollbar for webkit browsers (Chrome, Edge, Safari) */
 ::-webkit-scrollbar {
-	width: 5px;
-	height: 8px;
+	width: 5px; /* vertical scrollbar width */
+	height: 10px; /* horizontal scrollbar height */
+}
+
+::-webkit-scrollbar-track {
+	background: #f0f0f02f; /* track color */
+	border-radius: 8px;
+}
+
+::-webkit-scrollbar-thumb {
+	background-color: #c0c0c0; /* thumb color */
+	border-radius: 8px;
+	border: 2px solid #f0f0f0; /* adds some spacing around thumb */
+}
+
+::-webkit-scrollbar-thumb:hover {
+	background-color: #909090; /* darker on hover */
+}
+
+/* Optional: scrollbar corner for intersection of horizontal + vertical */
+::-webkit-scrollbar-corner {
+	background: #f0f0f0;
 }

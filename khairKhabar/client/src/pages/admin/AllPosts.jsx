@@ -26,8 +26,10 @@ const AllPosts = () => {
 	};
 
 	return (
-		<div className="bg-white shadow-lg rounded-xl p-6 font-urdu">
-			<h2 className="text-xl font-bold mb-4 text-gray-800">All Posts</h2>
+		<div className="bg-white shadow-lg rounded-xl lg:p-6 font-urdu">
+			<h2 className="hidden lg:block text-xl font-bold mb-4 text-gray-800">
+				All Posts
+			</h2>
 			<div className="overflow-x-auto rounded-lg border border-gray-200">
 				<table className="min-w-full cursor-pointer text-sm text-gray-700 overflow-x-scroll">
 					<thead className="bg-gray-100 text-gray-600 uppercase text-xs">

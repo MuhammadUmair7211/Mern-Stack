@@ -28,7 +28,7 @@ const RightSide = () => {
 			<div
 				title="click to read full details of hadith"
 				onClick={() => navigate(`/hadith-details/${hadith[index].id}`)}
-				className="w-full mb-4 text-center space-y-2 rounded p-3"
+				className="w-full mb-4 text-center space-y-2 rounded p-2"
 			>
 				<h2 className="text-sm font-semibold">روزانہ حدیث</h2>
 				{hadith ? (
