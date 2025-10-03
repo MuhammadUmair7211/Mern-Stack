@@ -30,9 +30,11 @@ import RecentPosts from "./pages/RecentPosts";
 import PopularPosts from "./pages/PopularPosts";
 import HadithDetails from "./pages/HadithDetails";
 import ChangeText from "./pages/admin/ChangeText";
+import Profile from "./pages/Profile";
 const App = () => {
 	const { pathname } = useLocation();
-	const isAdminPath = pathname.includes("/admin");
+	const isAdminPath =
+		pathname.includes("/admin") || pathname.includes("/profile");
 	const { setShowSideBar, showSideBar, navigate } = useApp();
 	return (
 		<div>
@@ -103,6 +105,8 @@ const App = () => {
 					<Route path="hadith-details/:id" element={<HadithDetails />} />
 					<Route path="posts/:id" element={<Posts />} />
 				</Route>
+
+				<Route path="/profile/:id" element={<Profile />} />
 
 				{/* Public route */}
 				<Route path="/admin-login" element={<AdminLogin />} />

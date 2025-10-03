@@ -5,33 +5,6 @@ export const assets = {
 	headerBg,
 };
 
-export const dummyFollowers = [
-	{ _id: 1, avatar: "https://i.pravatar.cc/50?img=1" },
-	{ _id: 2, avatar: "https://i.pravatar.cc/50?img=2" },
-	{ _id: 3, avatar: "https://i.pravatar.cc/50?img=3" },
-	{ _id: 4, avatar: "https://i.pravatar.cc/50?img=4" },
-	{ _id: 5, avatar: "https://i.pravatar.cc/50?img=5" },
-	{ _id: 6, avatar: "https://i.pravatar.cc/50?img=6" },
-	{ _id: 7, avatar: "https://i.pravatar.cc/50?img=7" },
-	{ _id: 8, avatar: "https://i.pravatar.cc/50?img=8" },
-	{ _id: 9, avatar: "https://i.pravatar.cc/50?img=9" },
-	{ _id: 10, avatar: "https://i.pravatar.cc/50?img=10" },
-	{ _id: 11, avatar: "https://i.pravatar.cc/50?img=11" },
-	{ _id: 12, avatar: "https://i.pravatar.cc/50?img=12" },
-	{ _id: 13, avatar: "https://i.pravatar.cc/50?img=13" },
-	{ _id: 14, avatar: "https://i.pravatar.cc/50?img=14" },
-	{ _id: 15, avatar: "https://i.pravatar.cc/50?img=15" },
-	{ _id: 16, avatar: "https://i.pravatar.cc/50?img=16" },
-	{ _id: 17, avatar: "https://i.pravatar.cc/50?img=17" },
-	{ _id: 18, avatar: "https://i.pravatar.cc/50?img=18" },
-	{ _id: 19, avatar: "https://i.pravatar.cc/50?img=19" },
-	{ _id: 20, avatar: "https://i.pravatar.cc/50?img=20" },
-	{ _id: 21, avatar: "https://i.pravatar.cc/50?img=21" },
-	{ _id: 22, avatar: "https://i.pravatar.cc/50?img=22" },
-	{ _id: 23, avatar: "https://i.pravatar.cc/50?img=23" },
-	{ _id: 24, avatar: "https://i.pravatar.cc/50?img=24" },
-];
-
 // ---------------------------------------------------------------------------------------------------
 
 export const personalBlogPosts = [

@@ -16,7 +16,7 @@ const RecentPosts = () => {
 						onClick={() => setShowSideBar(false)}
 						to={`/posts/${post._id}`}
 						key={post._id}
-						className="font-urdu text-right hover:text-white duration-300 block pb-2 border-b border-gray-300"
+						className="font-urdu text-right hover:text-black duration-300 block pb-2 border-b border-gray-300"
 					>
 						{post.title}
 					</NavLink>

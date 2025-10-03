@@ -1,5 +1,4 @@
 import { createContext, useContext, useEffect, useState } from "react";
-import { dummyPosts, dummyFollowers } from "../assets/assets";
 import { useLocation, useNavigate } from "react-router-dom";
 
 export const AppContext = createContext();
@@ -7,8 +6,8 @@ export const useApp = () => useContext(AppContext);
 
 const AppProvider = ({ children }) => {
 	const navigate = useNavigate();
-	const [posts, setPosts] = useState(dummyPosts);
-	const [followers, setFollowers] = useState(dummyFollowers);
+	const [posts, setPosts] = useState([]);
+	const [followers, setFollowers] = useState([]);
 	const [filter, setFilter] = useState("");
 	const [showSideBar, setShowSideBar] = useState(false);
 	const [hadith, setHadith] = useState(null);
@@ -22,13 +21,27 @@ const AppProvider = ({ children }) => {
 		_id: "1",
 		name: "Muhammad Umair",
 	});
+	const fetchAllUsers = async () => {
+		try {
+			const res = await fetch("http://localhost:3000/api/user/all-users", {
+				method: "GET",
+			});
+			const data = await res.json();
+			setFollowers(data.registeredUsers);
+		} catch (error) {
+			console.error(error);
+		}
+	};
+	useEffect(() => {
+		fetchAllUsers();
+	}, []);
+
 	const fetchPosts = async () => {
 		try {
 			const res = await fetch("http://localhost:3000/api/post/get-all-posts", {
 				method: "GET",
 			});
 			const data = await res.json();
-			console.log(data);
 			setPosts(data.posts);
 		} catch (error) {
 			console.error(error.message);

@@ -3,6 +3,7 @@ import cors from "cors";
 import dotenv from "dotenv";
 import { connectDB } from "./config/db.js";
 import postRouter from "./routes/postRoutes.js";
+import authRouter from "./routes/authRoutes.js";
 
 // Load .env variables
 dotenv.config();
@@ -18,6 +19,8 @@ app.use(express.json());
 
 // Routes
 app.use("/api/post", postRouter);
+app.use("/api/auth", authRouter);
+app.use("/api/user", authRouter);
 app.get("/", (req, res) => {
 	res.send("🚀 Urdu Blog Backend is Running!");
 });
