@@ -33,6 +33,7 @@ import ChangeText from "./pages/admin/ChangeText";
 import { AnimatePresence } from "framer-motion";
 import Profile from "./pages/Profile";
 import AdminRoute from "./pages/admin/AdminRoute";
+import FollowButton from "./components/FollowButton";
 const App = () => {
 	const location = useLocation();
 	const { pathname } = location;
@@ -53,11 +54,11 @@ const App = () => {
 			{!isAdminPath && (
 				<div
 					onClick={(e) => e.stopPropagation()}
-					className="lg:hidden fixed top-36 -right-2 z-50"
+					className="lg:hidden fixed top-32 -right-2 z-50"
 				>
 					<p
 						onClick={() => setShowSideBar(!showSideBar)}
-						className="text-xs font-light flex items-center text-blue-500 underline animate-pulse duration-1000 cursor-pointer"
+						className="text-xs font-light flex items-center text-[#7b011e] underline animate-pulse duration-1000 cursor-pointer"
 					>
 						useful <br /> links
 						<RiArrowLeftSFill className="text-2xl" />
@@ -68,25 +69,28 @@ const App = () => {
 			{showSideBar && (
 				<div
 					onClick={(e) => e.stopPropagation()}
-					className="flex flex-col space-y-6 lg:hidden fixed top-44 right-2 w-64 p-4 bg-blue-500 text-white shadow-lg rounded-md z-40 font-urdu text-center font-semibold"
+					className="flex flex-col space-y-6 lg:hidden fixed top-40 right-2 w-64 p-4 bg-[#7b011e] text-white shadow-lg rounded-md z-40 font-urdu text-center font-semibold"
 				>
-					<div>
-						<h2 className="text-sm my-4  text-black ">
-							حال ہی میں اپ لوڈ کی گئی پوسٹس
-						</h2>
-
+					<div className="leading-[2rem]">
+						<h2 className="text-sm my-4 ">حال ہی میں اپ لوڈ کی گئی پوسٹس</h2>
 						<RecentPosts />
 					</div>
-					<div>
-						<h2 className="text-sm my-6 text-center text-black">مقبول پوسٹس</h2>
+					<div className="leading-[2rem]">
+						<h2 className="text-sm my-6 text-center">مقبول پوسٹس</h2>
 						<PopularPosts />
 					</div>
 					<button
-						onClick={() => navigate("/admin-login")}
-						className="bg-transparent px-2 lg:px-5 py-2 rounded-full border border-gray-600 text-gray-800 hover:bg-gray-900 hover:text-white hover:border-gray-900  duration-300 cursor-pointer text-xs"
+						onClick={() => {
+							navigate("/admin-login");
+							setShowSideBar(false);
+						}}
+						className="bg-[#f5f1e6] px-2 lg:px-5 py-2 mb-2 rounded-full text-[#7b011e] border hover:bg-[#7b011e] hover:text-[#f5f1e6] hover:border-[#f5f1e6] duration-300 cursor-pointer text-xs"
 					>
 						Admin Dashboard
 					</button>
+					<p onClick={() => setShowSideBar(false)}>
+						<FollowButton />
+					</p>
 				</div>
 			)}
 			<AnimatePresence mode="wait">

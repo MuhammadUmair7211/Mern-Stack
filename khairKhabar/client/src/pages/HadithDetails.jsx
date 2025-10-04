@@ -8,9 +8,6 @@ const HadithDetails = () => {
 	const filteredHadith = hadith?.filter((h) => {
 		return h.id === Number(id);
 	});
-
-	console.log(filteredHadith);
-
 	return (
 		<div className="font-urdu text-right">
 			<h2 className="text-2xl font-bold text-center mb-6 pb-2">احادیث</h2>

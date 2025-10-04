@@ -1,4 +1,5 @@
 import { useApp } from "../contexts/AppContext";
+import NoPostAvailable from "./NoPostAvailable";
 import PostCard from "./PostCard";
 
 const CenterContent = () => {
@@ -11,10 +12,7 @@ const CenterContent = () => {
 					<PostCard key={post._id} post={post} index={index} />
 				))
 			) : (
-				<div className="flex flex-col items-center justify-center text-gray-500 mt-6">
-					<span className="text-3xl mb-2">📅</span>
-					<p className="text-sm">No posts available for this date</p>
-				</div>
+				<NoPostAvailable />
 			)}
 		</div>
 	);

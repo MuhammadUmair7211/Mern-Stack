@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import FollowButton from "./FollowButton";
 
 const Header = () => {
 	const [dateTime, setDateTime] = useState(new Date());

@@ -27,8 +27,10 @@ const Navigation = () => {
 						end={link.path === "/"}
 						aria-label={link.name}
 						className={({ isActive }) =>
-							`uppercase px-4 py-2 font-light lg:font-bold hover:translate-x-2 duration-300 text-xs md:text-sm ${
-								isActive ? "text-[#f5f1e6] bg-[#7b011e]" : "text-[#f5f1e6]"
+							`uppercase px-4 py-2 font-light lg:font-bold hover:-translate-x-2 hover:bg-[#7b011e] hover:border-t-[#7b011e] duration-300 text-xs md:text-sm ${
+								isActive
+									? "text-[#f5f1e6] bg-[#7b011e] border-t border-t-[#f5f1e6]"
+									: "text-[#f5f1e6]"
 							}`
 						}
 					>
