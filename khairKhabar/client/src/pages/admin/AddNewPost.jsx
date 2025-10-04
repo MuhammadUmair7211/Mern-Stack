@@ -19,6 +19,7 @@ const AddNewPost = () => {
 	};
 
 	const handleSubmit = async (e) => {
+		const token = localStorage.getItem("token");
 		e.preventDefault();
 		const formDataToSend = new FormData();
 		formDataToSend.append("category", formData.category);
@@ -29,6 +30,9 @@ const AddNewPost = () => {
 		try {
 			const res = await fetch("http://localhost:3000/api/post/add-new-post", {
 				method: "POST",
+				headers: {
+					Authorization: `Bearer ${token}`,
+				},
 				body: formDataToSend,
 			});
 			const data = await res.json();

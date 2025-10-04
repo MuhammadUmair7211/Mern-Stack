@@ -39,6 +39,7 @@ const EditPost = () => {
 	};
 
 	const handleSubmit = async (e) => {
+		const token = localStorage.getItem("token");
 		e.preventDefault();
 		const editedFormData = new FormData();
 		editedFormData.append("category", formData.category);
@@ -48,19 +49,21 @@ const EditPost = () => {
 		editedFormData.append("image", formData.image);
 		const res = await fetch(`http://localhost:3000/api/post/edit-post/${id}`, {
 			method: "PUT",
+			headers: {
+				Authorization: `Bearer ${token}`,
+			},
 			body: editedFormData,
 		});
 		const data = await res.json();
-		console.log(data);
 		if (data.success) {
 			toast.success(data.message);
+			setPosts((prevPosts) =>
+				prevPosts.map((p) => (String(p._id) === String(id) ? data.post : p))
+			);
 			navigate("/admin-layout");
 		} else {
 			toast.error(data.message);
 		}
-		setPosts((prevPosts) =>
-			prevPosts.map((p) => (String(p._id) === String(id) ? data.post : p))
-		);
 	};
 	if (!filteredPostById) {
 		return <p className="text-red-500">Post not found</p>;

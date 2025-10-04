@@ -1,30 +1,5 @@
 import User from "../models/User.js";
 
-export const authController = async (req, res) => {
-	try {
-		const ADMIN_EMAIL = process.env.ADMIN_LOGIN_EMAIL;
-		const ADMIN_PASSWORD = process.env.ADMIN_LOGIN_PASSWORD;
-		const { email, password } = req.body;
-		if (!email || !password) {
-			return res.json({
-				success: false,
-				message: "Email and Password are required!",
-			});
-		}
-		if (email !== ADMIN_EMAIL) {
-			return res.json({ message: "Invalid Email!" });
-		}
-		if (password !== ADMIN_PASSWORD) {
-			return res.json({ message: "Invalid Login Password!" });
-		}
-		return res
-			.status(200)
-			.json({ success: true, message: "You have successfully Logged in!" });
-	} catch (error) {
-		console.error(err);
-		return res.status(500).json({ error: "server error" });
-	}
-};
 export const registerUserController = async (req, res) => {
 	try {
 		const { username, email, image } = req.body;

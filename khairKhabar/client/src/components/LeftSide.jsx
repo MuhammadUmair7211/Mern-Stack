@@ -78,10 +78,10 @@ const LeftSide = () => {
 
 			<div className="p-2">
 				<h2 className="text-xs font-bold pb-4">
-					Followers : {followers.length}
+					Followers : {followers?.length}
 				</h2>
 				<div className="text-[#f5f1e6] grid h-[300px] grid-cols-3 overflow-y-scroll md:grid-cols-3 lg:grid-cols-7 gap-2">
-					{followers.map((follower) => {
+					{followers?.map((follower) => {
 						return (
 							<div
 								key={follower._id}

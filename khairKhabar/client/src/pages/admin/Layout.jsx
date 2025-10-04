@@ -3,7 +3,10 @@ import { MdOutlinePostAdd } from "react-icons/md";
 import { CiSignpostDuo1 } from "react-icons/ci";
 import { AiOutlineLogout } from "react-icons/ai";
 import { IoText } from "react-icons/io5";
+import toast from "react-hot-toast";
+import { useApp } from "../../contexts/AppContext";
 const Layout = () => {
+	const { navigate } = useApp();
 	const links = [
 		{
 			name: "All Posts",
@@ -22,33 +25,47 @@ const Layout = () => {
 		},
 		{
 			name: "Logout",
-			path: "/admin-login",
 			icon: <AiOutlineLogout className="text-xl lg:text-2xl" />,
+			isLogout: true,
 		},
 	];
-
+	const handleLogout = () => {
+		localStorage.removeItem("token");
+		toast.success("Logged out successfully");
+		navigate("/admin-login");
+	};
 	return (
 		<div className="flex min-h-screen bg-gray-100">
 			{/* Sidebar */}
 			<aside className="w-10 lg:w-64 bg-gray-900 text-white lg:p-6">
 				<h2 className="hidden lg:text-2xl font-bold mb-10">Admin Panel</h2>
 				<nav className="hidden lg:flex flex-col gap-2">
-					{links.map((link, index) => (
-						<NavLink
-							key={index}
-							to={link.path}
-							end={link.path === "/admin-layout"} // ensures "All Posts" only highlights on exact path
-							className={({ isActive }) =>
-								`px-3 py-2 rounded flex items-center gap-4 duration-300 ${
-									isActive
-										? "bg-gray-700 text-blue-400 font-semibold"
-										: "hover:bg-gray-800 text-gray-300"
-								}`
-							}
-						>
-							{link.icon} <span className="text-xs">{link.name}</span>
-						</NavLink>
-					))}
+					{links.map((link, index) =>
+						link.isLogout ? (
+							<button
+								key={index}
+								onClick={handleLogout}
+								className="px-3 py-2 rounded flex items-center gap-4 text-gray-300 hover:bg-gray-800 duration-300"
+							>
+								{link.icon} <span className="text-xs">{link.name}</span>
+							</button>
+						) : (
+							<NavLink
+								key={index}
+								to={link.path}
+								end={link.path === "/admin-layout"} // ensures "All Posts" only highlights on exact path
+								className={({ isActive }) =>
+									`px-3 py-2 rounded flex items-center gap-4 duration-300 ${
+										isActive
+											? "bg-gray-700 text-blue-400 font-semibold"
+											: "hover:bg-gray-800 text-gray-300"
+									}`
+								}
+							>
+								{link.icon} <span className="text-xs">{link.name}</span>
+							</NavLink>
+						)
+					)}
 				</nav>
 				<nav className="flex lg:hidden flex-col gap-2">
 					{links.map((link, index) => (

@@ -12,7 +12,7 @@ export default function AdminLogin() {
 	});
 	const handleFormSubmit = async (e) => {
 		e.preventDefault();
-		const res = await fetch("http://localhost:3000/api/auth", {
+		const res = await fetch("http://localhost:3000/api/admin", {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json",
@@ -20,8 +20,13 @@ export default function AdminLogin() {
 			body: JSON.stringify(formData),
 		});
 		const data = await res.json();
+
 		console.log(data);
+
 		if (data.success) {
+			if (data.token) {
+				localStorage.setItem("token", data.token);
+			}
 			toast.success(data.message);
 			navigate("/admin-layout");
 		} else {

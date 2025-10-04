@@ -22,11 +22,17 @@ const AppProvider = ({ children }) => {
 		localStorage.setItem("text", text);
 	}, [text]);
 	const fetchAllUsers = async () => {
+		const token = localStorage.getItem("token");
 		try {
 			const res = await fetch("http://localhost:3000/api/user/all-users", {
 				method: "GET",
+				headers: {
+					Authorization: `Bearer ${token}`,
+				},
 			});
 			const data = await res.json();
+			console.log(data);
+
 			setFollowers(data.registeredUsers);
 		} catch (error) {
 			console.error(error);

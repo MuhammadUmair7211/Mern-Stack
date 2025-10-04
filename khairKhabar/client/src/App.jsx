@@ -30,9 +30,12 @@ import RecentPosts from "./pages/RecentPosts";
 import PopularPosts from "./pages/PopularPosts";
 import HadithDetails from "./pages/HadithDetails";
 import ChangeText from "./pages/admin/ChangeText";
+import { AnimatePresence } from "framer-motion";
 import Profile from "./pages/Profile";
+import AdminRoute from "./pages/admin/AdminRoute";
 const App = () => {
-	const { pathname } = useLocation();
+	const location = useLocation();
+	const { pathname } = location;
 	const isAdminPath =
 		pathname.includes("/admin") || pathname.includes("/profile");
 	const { setShowSideBar, showSideBar, navigate } = useApp();
@@ -86,39 +89,43 @@ const App = () => {
 					</button>
 				</div>
 			)}
-			<Routes>
-				<Route path="/" element={<Home />}>
-					<Route index element={<CenterContent />} />
-					<Route path="personal-blog" element={<PersonalBlog />} />
-					<Route path="travelogues" element={<Travelogue />} />
-					<Route path="literary-criticism" element={<LiteraryCriticism />} />
-					<Route path="learn-urdu" element={<LearnUrdu />} />
-					<Route path="history-of-urdu" element={<HistoryOfUrdu />} />
-					<Route path="idioms-proverbs" element={<Idioms />} />
-					<Route path="poetry" element={<Poetry />} />
-					<Route path="prose" element={<Prose />} />
-					<Route path="humor" element={<Humor />} />
-					<Route path="fiction" element={<Fiction />} />
-					<Route path="character-sketches" element={<CharacterSketch />} />
-					<Route path="pakistan" element={<Pakistan />} />
-					<Route path="about" element={<About />} />
-					<Route path="hadith-details/:id" element={<HadithDetails />} />
-					<Route path="posts/:id" element={<Posts />} />
-				</Route>
+			<AnimatePresence mode="wait">
+				<Routes location={location} key={location.pathname}>
+					<Route path="/" element={<Home />}>
+						<Route index element={<CenterContent />} />
+						<Route path="personal-blog" element={<PersonalBlog />} />
+						<Route path="travelogues" element={<Travelogue />} />
+						<Route path="literary-criticism" element={<LiteraryCriticism />} />
+						<Route path="learn-urdu" element={<LearnUrdu />} />
+						<Route path="history-of-urdu" element={<HistoryOfUrdu />} />
+						<Route path="idioms-proverbs" element={<Idioms />} />
+						<Route path="poetry" element={<Poetry />} />
+						<Route path="prose" element={<Prose />} />
+						<Route path="humor" element={<Humor />} />
+						<Route path="fiction" element={<Fiction />} />
+						<Route path="character-sketches" element={<CharacterSketch />} />
+						<Route path="pakistan" element={<Pakistan />} />
+						<Route path="about" element={<About />} />
+						<Route path="hadith-details/:id" element={<HadithDetails />} />
+						<Route path="posts/:id" element={<Posts />} />
+					</Route>
 
-				<Route path="/profile/:id" element={<Profile />} />
+					<Route path="/profile/:id" element={<Profile />} />
 
-				{/* Public route */}
-				<Route path="/admin-login" element={<AdminLogin />} />
+					{/* Public route */}
+					<Route path="/admin-login" element={<AdminLogin />} />
 
-				{/* Protected routes inside Layout */}
-				<Route path="/admin-layout" element={<Layout />}>
-					<Route index element={<AllPosts />} />
-					<Route path="add-new-posts" element={<AddNewPost />} />
-					<Route path="change-text" element={<ChangeText />} />
-					<Route path="edit-post/:id" element={<EditPost />} />
-				</Route>
-			</Routes>
+					{/* Protected routes inside Layout */}
+					<Route element={<AdminRoute />}>
+						<Route path="/admin-layout" element={<Layout />}>
+							<Route index element={<AllPosts />} />
+							<Route path="add-new-posts" element={<AddNewPost />} />
+							<Route path="change-text" element={<ChangeText />} />
+							<Route path="edit-post/:id" element={<EditPost />} />
+						</Route>
+					</Route>
+				</Routes>
+			</AnimatePresence>
 		</div>
 	);
 };

@@ -1,3 +1,4 @@
+import toast from "react-hot-toast";
 import { useApp } from "../../contexts/AppContext";
 
 const AllPosts = () => {
@@ -5,6 +6,7 @@ const AllPosts = () => {
 
 	// Delete a post
 	const handleDelete = async (post) => {
+		const token = localStorage.getItem("token");
 		const result = window.confirm(
 			`Are you sure you want to delete "${post.title}"?`
 		);
@@ -13,11 +15,18 @@ const AllPosts = () => {
 			`http://localhost:3000/api/post/delete-post/${post._id}`,
 			{
 				method: "DELETE",
+				headers: {
+					Authorization: `Bearer ${token}`,
+				},
 			}
 		);
 		const data = await res.json();
-		console.log(data);
-		setPosts(posts.filter((p) => p._id !== post._id));
+		if (data.success) {
+			toast.success(data.message);
+			setPosts(posts.filter((p) => p._id !== post._id));
+		} else {
+			toast.error(data.message);
+		}
 	};
 
 	// Edit a post (for now just alert)

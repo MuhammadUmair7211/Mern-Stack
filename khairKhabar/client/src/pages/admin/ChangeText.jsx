@@ -1,11 +1,10 @@
 import { useApp } from "../../contexts/AppContext";
 
 const ChangeText = () => {
-	const { text, setText, navigate } = useApp();
+	const { text, setText } = useApp();
 	const handleTextSave = () => {
 		localStorage.setItem("text", text);
 		alert("text changed!");
-		navigate("/");
 	};
 
 	return (
