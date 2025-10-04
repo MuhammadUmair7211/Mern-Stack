@@ -43,14 +43,14 @@ const PostCard = ({ post, index }) => {
 					onClick={() => toggleLike(post._id)}
 					className={`flex border border-gray-300 items-center gap-2 px-5 py-1 rounded-full cursor-pointer 
       ${
-				post.likes.includes(user._id)
+				post.likes.includes(user?.id)
 					? "bg-blue-500 text-white hover:bg-blue-600 duration-200"
 					: "bg-white text-gray-600 hover:bg-gray-100"
 			}`}
 				>
 					<SlLike
 						className={`text-lg transition-transform duration-200 ${
-							post.likes.includes(user._id) ? "scale-110" : "hover:scale-110"
+							post.likes.includes(user?.id) ? "scale-110" : "hover:scale-110"
 						}`}
 					/>
 					<span className="text-sm font-medium mb-2">{post.likes.length}</span>

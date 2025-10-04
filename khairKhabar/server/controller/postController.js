@@ -97,3 +97,32 @@ export const editPost = async (req, res) => {
 		});
 	}
 };
+
+export const editLikePosts = async (req, res) => {
+	try {
+		const { postId } = req.params;
+		const { userId } = req.body;
+		const post = await Post.findById(postId);
+		if (!post) {
+			return res.status(404).json({ message: "Post not found" });
+		}
+
+		// Toggle like logic
+		if (post.likes.includes(userId)) {
+			post.likes = post.likes.filter((id) => id !== userId);
+		} else {
+			post.likes.push(userId);
+		}
+		post.likes = post.likes.filter((id) => id !== null && id !== undefined);
+
+		await post.save();
+		res.status(200).json({
+			success: true,
+			likes: post.likes,
+			message: "Updated successfully",
+		});
+	} catch (error) {
+		console.error(error);
+		res.status(500).json({ success: false, message: "Server error" });
+	}
+};

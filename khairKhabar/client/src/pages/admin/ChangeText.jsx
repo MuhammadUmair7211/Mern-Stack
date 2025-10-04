@@ -9,7 +9,7 @@ const ChangeText = () => {
 	};
 
 	return (
-		<div className="w-full h-full flex items-center justify-center bg-gray-400 font-urdu">
+		<div className="w-full h-full px-2 flex items-center justify-center bg-gray-400 font-urdu">
 			<div className="flex flex-col items-center shadow max-w-md w-full p-4 rounded-md bg-white space-y-4">
 				<textarea
 					value={text}
