@@ -1,7 +1,6 @@
 import { Link } from "react-router-dom";
 import { useApp } from "../contexts/AppContext";
 import Contact from "./Contact";
-import { assets } from "../assets/assets";
 const Navbar = () => {
 	const { text } = useApp();
 
@@ -10,7 +9,7 @@ const Navbar = () => {
 			<div className="max-w-screen-2xl mx-auto px-2 lg:px-8">
 				<div className="flex flex-row-reverse justify-between items-center">
 					<Link to="/" className="text-[#7b011e]">
-						<p className="text-2xl lg:text-4xl lg:w-[200px]">خیرخبر</p>
+						<p className="text-2xl lg:text-4xl">خیرخبر</p>
 					</Link>
 					<marquee
 						behavior="scroll"

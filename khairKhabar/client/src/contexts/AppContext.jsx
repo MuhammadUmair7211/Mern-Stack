@@ -13,7 +13,7 @@ const AppProvider = ({ children }) => {
 	const [showSideBar, setShowSideBar] = useState(false);
 	const [hadith, setHadith] = useState(null);
 	const [user, setUser] = useState(null);
-
+	const [loading, setLoading] = useState(false);
 	const { pathname } = useLocation();
 	const [text, setText] = useState(() => {
 		return localStorage.getItem("text");
@@ -31,8 +31,6 @@ const AppProvider = ({ children }) => {
 				},
 			});
 			const data = await res.json();
-			console.log(data);
-
 			setFollowers(data.registeredUsers);
 		} catch (error) {
 			console.error(error);
@@ -43,12 +41,14 @@ const AppProvider = ({ children }) => {
 	}, []);
 
 	const fetchPosts = async () => {
+		setLoading(true);
 		try {
 			const res = await fetch("http://localhost:3000/api/post/get-all-posts", {
 				method: "GET",
 			});
 			const data = await res.json();
 			setPosts(data.posts);
+			setLoading(false);
 		} catch (error) {
 			console.error(error.message);
 		}
@@ -144,6 +144,8 @@ const AppProvider = ({ children }) => {
 		setHadith,
 		text,
 		setText,
+		loading,
+		setLoading,
 	};
 	return <AppContext.Provider value={value}>{children}</AppContext.Provider>;
 };

@@ -36,7 +36,6 @@ const AddNewPost = () => {
 				body: formDataToSend,
 			});
 			const data = await res.json();
-			console.log(data);
 			if (data.success) {
 				toast.success(data.message);
 				setFormData({
@@ -57,16 +56,16 @@ const AddNewPost = () => {
 	return (
 		<div className="min-h-screen flex items-center justify-center bg-gray-100 font-urdu">
 			<div className="bg-white shadow-lg rounded-xl p-4 w-full max-w-7xl">
-				<h2 className="text-xl lg:text-2xl font-bold text-gray-800 mb-4">
+				<h2 className="text-lg lg:text-xl font-bold text-gray-800 mb-4">
 					Add New Post
 				</h2>
 
 				<form
 					onSubmit={handleSubmit}
-					className="grid grid-cols-1 md:grid-cols-2 gap-4"
+					className="grid grid-cols-1 md:grid-cols-2 gap-2"
 				>
 					{/* Left Column */}
-					<div className="space-y-4">
+					<div className="space-y-2">
 						{/* Title */}
 						<div>
 							<label className="mb-2 block text-sm font-medium text-gray-700">
@@ -79,7 +78,7 @@ const AddNewPost = () => {
 								placeholder="Enter post title"
 								value={formData.title}
 								onChange={handleChange}
-								className="w-full p-2 rounded-lg border border-gray-300 outline-none"
+								className="w-full p-2 rounded-lg text-sm border border-gray-300 outline-none leading-8"
 							/>
 						</div>
 						{/* Category */}
@@ -92,7 +91,7 @@ const AddNewPost = () => {
 								value={formData.category}
 								onChange={handleChange}
 								required
-								className="w-full p-2 rounded-lg border border-gray-300 outline-none"
+								className="w-full text-sm rounded-lg border border-gray-300 outline-none leading-8"
 							>
 								<option hidden>Select a category</option>
 								<option value="personal blog">Personal Blog</option>
@@ -122,7 +121,7 @@ const AddNewPost = () => {
 								placeholder="Enter author name"
 								value={formData.author}
 								onChange={handleChange}
-								className="w-full p-2 rounded-lg border border-gray-300 outline-none"
+								className="w-full p-2 text-sm rounded-lg border border-gray-300 outline-none leading-8"
 							/>
 						</div>
 
@@ -142,7 +141,7 @@ const AddNewPost = () => {
 												: URL.createObjectURL(formData.image)
 										}
 										alt="Post Preview"
-										className="w-full max-w-xl h-[30vh] object-center rounded-lg shadow-md duration-500 ease-in-out mx-auto animate-fadeIn hover:scale-105"
+										className="w-full max-w-xl h-[40vh] object-center rounded-lg shadow-md duration-500 ease-in-out mx-auto animate-fadeIn hover:scale-102"
 									/>
 								</div>
 							)}
@@ -177,11 +176,11 @@ const AddNewPost = () => {
 						<textarea
 							name="content"
 							placeholder="اپنی پوسٹ کا مواد یہاں لکھیں..."
-							rows="32"
+							rows="30"
 							value={formData.content}
 							required
 							onChange={handleChange}
-							className="mt-1 w-full px-4 py-3 rounded-lg border border-gray-300  outline-none text-sm resize-none text-right"
+							className="mt-1 w-full px-4 py-3 rounded-lg border border-gray-300 outline-none text-sm resize-none text-right"
 						></textarea>
 					</div>
 

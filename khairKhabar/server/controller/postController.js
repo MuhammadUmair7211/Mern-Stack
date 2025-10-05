@@ -18,14 +18,14 @@ export const postController = async (req, res) => {
 		await newPost.save();
 		return res.status(200).json({
 			success: true,
-			message: "✅ Post created successfully!",
+			message: "Post created successfully!",
 			post: newPost,
 		});
 	} catch (error) {
 		console.error(error);
 		res.status(500).json({
 			success: false,
-			message: "❌ Server error",
+			message: "Server error",
 			error: error.message,
 		});
 	}
@@ -85,14 +85,14 @@ export const editPost = async (req, res) => {
 		}
 		res.status(200).json({
 			success: true,
-			message: "✅ Post updated successfully!",
+			message: "Post updated successfully!",
 			post: editedPost,
 		});
 	} catch (error) {
 		console.error(error);
 		res.status(500).json({
 			success: false,
-			message: "❌ Server error while updating post",
+			message: "Server error while updating post",
 			error: error.message,
 		});
 	}

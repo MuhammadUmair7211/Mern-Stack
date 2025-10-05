@@ -38,7 +38,7 @@ const LeftSide = () => {
 			<Followers />
 			<Contact
 				paragraph={
-					<p className="text-sm text-gray-500 mt-2">
+					<p className="text-[12px] text-gray-500 mt-2">
 						© {new Date().getFullYear()} KhairKhabar.com @All rights reserved.
 					</p>
 				}

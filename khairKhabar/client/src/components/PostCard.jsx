@@ -15,11 +15,7 @@ const PostCard = ({ post, index }) => {
 			</h1>
 
 			{/* Content */}
-			<p
-				className={`mt-4 text-right ${
-					post.category === "poetry" ? "max-w-[250px] ml-auto" : ""
-				}`}
-			>
+			<p className="whitespace-pre-wrap leading-8 font-urdu text-right">
 				{post.content}
 			</p>
 
@@ -35,10 +31,14 @@ const PostCard = ({ post, index }) => {
 			)}
 
 			{/* Author and date */}
-			<p>{post.author} ---</p>
+			<p>{post.author} --</p>
 			<p className="text-xs text-gray-700">
-				{new Date(post.createdAt).toLocaleDateString("en-GB")}
+				{new Date(post.createdAt).toLocaleString("en-US", {
+					dateStyle: "medium",
+					timeStyle: "short",
+				})}
 			</p>
+
 			<div className="mt-4">
 				<button
 					onClick={() => toggleLike(post._id)}

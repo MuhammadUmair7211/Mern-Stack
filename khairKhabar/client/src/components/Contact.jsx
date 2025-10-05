@@ -37,7 +37,7 @@ const Contact = ({ paragraph }) => {
 					</a>
 				))}
 			</div>
-			<span>{paragraph}</span>
+			{paragraph}
 		</section>
 	);
 };

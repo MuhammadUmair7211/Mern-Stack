@@ -10,6 +10,8 @@ import { AnimatePresence } from "framer-motion";
 import FollowButton from "./components/FollowButton";
 import { lazy, Suspense } from "react";
 import { ScaleLoader } from "react-spinners";
+import RecentPosts from "./components/RecentPosts";
+import PopularPosts from "./components/PopularPosts";
 
 const Home = lazy(() => import("./pages/Home"));
 const Poetry = lazy(() => import("./pages/Poetry"));
@@ -31,8 +33,6 @@ const AllPosts = lazy(() => import("./pages/admin/AllPosts"));
 const AddNewPost = lazy(() => import("./pages/admin/AddNewPost"));
 const EditPost = lazy(() => import("./pages/admin/EditPost"));
 const Posts = lazy(() => import("./pages/Posts"));
-const RecentPosts = lazy(() => import("./components/RecentPosts"));
-const PopularPosts = lazy(() => import("./components/PopularPosts"));
 const HadithDetails = lazy(() => import("./pages/HadithDetails"));
 const ChangeText = lazy(() => import("./pages/admin/ChangeText"));
 const Profile = lazy(() => import("./pages/Profile"));
