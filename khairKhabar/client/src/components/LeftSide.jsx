@@ -2,6 +2,7 @@ import { useApp } from "../contexts/AppContext";
 import SearchByDate from "./SearchByDate";
 import Followers from "./Followers";
 import FollowButton from "./FollowButton";
+import Contact from "./Contact";
 const LeftSide = () => {
 	const { navigate } = useApp();
 
@@ -35,6 +36,13 @@ const LeftSide = () => {
 			</div>
 			<SearchByDate />
 			<Followers />
+			<Contact
+				paragraph={
+					<p className="text-sm text-gray-500 mt-2">
+						© {new Date().getFullYear()} KhairKhabar.com @All rights reserved.
+					</p>
+				}
+			/>
 			<FollowButton />
 		</div>
 	);

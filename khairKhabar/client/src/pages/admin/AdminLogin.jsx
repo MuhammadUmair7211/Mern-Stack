@@ -86,7 +86,7 @@ export default function AdminLogin() {
 							onChange={(e) =>
 								setFormData({ ...formData, password: e.target.value })
 							}
-							className="peer mt-1 w-full px-4 py-2 rounded-lg border border-gray-300 outline-none text-sm cursor-pointer"
+							className="peer mt-1 w-full px-4 py-2 rounded-lg border border-gray-300 outline-none text-sm"
 						/>
 						<span className="absolute top-3 right-3 cursor-pointer">
 							{showPassword ? (

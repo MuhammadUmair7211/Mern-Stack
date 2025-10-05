@@ -2,6 +2,7 @@ import { useApp } from "../contexts/AppContext";
 
 const Followers = () => {
 	const { followers, navigate } = useApp();
+
 	return (
 		<div className="p-2">
 			<h2 className="text-xs font-bold pb-4">

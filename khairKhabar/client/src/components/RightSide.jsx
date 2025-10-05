@@ -1,5 +1,5 @@
-import RecentPosts from "../pages/RecentPosts";
-import PopularPosts from "../pages/PopularPosts";
+import RecentPosts from "./RecentPosts";
+import PopularPosts from "./PopularPosts";
 import HadithSection from "./HadithSection";
 const RightSide = () => {
 	return (

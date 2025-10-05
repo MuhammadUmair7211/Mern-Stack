@@ -1,39 +1,42 @@
 import { Route, Routes, useLocation } from "react-router-dom";
 import Header from "./components/Header";
 import Navbar from "./components/Navbar";
-import Home from "./pages/Home";
-import Poetry from "./pages/Poetry";
-import Prose from "./pages/Prose";
-import Humor from "./pages/Humor";
-import Fiction from "./pages/Fiction";
-import About from "./pages/About";
-import PersonalBlog from "./pages/PersonalBlog";
-import CharacterSketch from "./pages/CharacterSketch";
 import Navigation from "./components/Navigation";
-import Travelogue from "./pages/Travelogue";
-import LiteraryCriticism from "./pages/LiteraryCriticism";
-import LearnUrdu from "./pages/LearnUrdu";
-import HistoryOfUrdu from "./pages/HistoryOfUrdu";
-import Idioms from "./pages/Idioms";
-import Pakistan from "./pages/Pakistan";
 import CenterContent from "./components/CenterContent";
-import AdminLogin from "./pages/admin/AdminLogin";
-import Layout from "./pages/admin/Layout";
-import AllPosts from "./pages/admin/AllPosts";
-import AddNewPost from "./pages/admin/AddNewPost";
-import EditPost from "./pages/admin/EditPost";
-import Posts from "./pages/Posts";
 import { Toaster } from "react-hot-toast";
 import { RiArrowLeftSFill } from "react-icons/ri";
 import { useApp } from "./contexts/AppContext";
-import RecentPosts from "./pages/RecentPosts";
-import PopularPosts from "./pages/PopularPosts";
-import HadithDetails from "./pages/HadithDetails";
-import ChangeText from "./pages/admin/ChangeText";
 import { AnimatePresence } from "framer-motion";
-import Profile from "./pages/Profile";
-import AdminRoute from "./pages/admin/AdminRoute";
 import FollowButton from "./components/FollowButton";
+import { lazy, Suspense } from "react";
+import { ScaleLoader } from "react-spinners";
+
+const Home = lazy(() => import("./pages/Home"));
+const Poetry = lazy(() => import("./pages/Poetry"));
+const Prose = lazy(() => import("./pages/Prose"));
+const Humor = lazy(() => import("./pages/Humor"));
+const Fiction = lazy(() => import("./pages/Fiction"));
+const About = lazy(() => import("./pages/About"));
+const PersonalBlog = lazy(() => import("./pages/PersonalBlog"));
+const CharacterSketch = lazy(() => import("./pages/CharacterSketch"));
+const Travelogue = lazy(() => import("./pages/Travelogue"));
+const LiteraryCriticism = lazy(() => import("./pages/LiteraryCriticism"));
+const LearnUrdu = lazy(() => import("./pages/LearnUrdu"));
+const HistoryOfUrdu = lazy(() => import("./pages/HistoryOfUrdu"));
+const Idioms = lazy(() => import("./pages/Idioms"));
+const Pakistan = lazy(() => import("./pages/Pakistan"));
+const AdminLogin = lazy(() => import("./pages/admin/AdminLogin"));
+const Layout = lazy(() => import("./pages/admin/Layout"));
+const AllPosts = lazy(() => import("./pages/admin/AllPosts"));
+const AddNewPost = lazy(() => import("./pages/admin/AddNewPost"));
+const EditPost = lazy(() => import("./pages/admin/EditPost"));
+const Posts = lazy(() => import("./pages/Posts"));
+const RecentPosts = lazy(() => import("./components/RecentPosts"));
+const PopularPosts = lazy(() => import("./components/PopularPosts"));
+const HadithDetails = lazy(() => import("./pages/HadithDetails"));
+const ChangeText = lazy(() => import("./pages/admin/ChangeText"));
+const Profile = lazy(() => import("./pages/Profile"));
+const AdminRoute = lazy(() => import("./pages/admin/AdminRoute"));
 const App = () => {
 	const location = useLocation();
 	const { pathname } = location;
@@ -54,7 +57,7 @@ const App = () => {
 			{!isAdminPath && (
 				<div
 					onClick={(e) => e.stopPropagation()}
-					className="lg:hidden fixed top-32 -right-2 z-50"
+					className="lg:hidden fixed top-30 -right-2 z-50"
 				>
 					<p
 						onClick={() => setShowSideBar(!showSideBar)}
@@ -69,14 +72,14 @@ const App = () => {
 			{showSideBar && (
 				<div
 					onClick={(e) => e.stopPropagation()}
-					className="flex flex-col space-y-6 lg:hidden fixed top-40 right-2 w-64 p-4 bg-[#7b011e] text-white shadow-lg rounded-md z-40 font-urdu text-center font-semibold"
+					className="flex flex-col lg:hidden fixed top-38 right-2 w-64 p-4 bg-[#7b011e] text-white shadow-lg rounded-md z-40 font-urdu text-center font-semibold"
 				>
 					<div className="leading-[2rem]">
 						<h2 className="text-sm my-4 ">حال ہی میں اپ لوڈ کی گئی پوسٹس</h2>
 						<RecentPosts />
 					</div>
 					<div className="leading-[2rem]">
-						<h2 className="text-sm my-6 text-center">مقبول پوسٹس</h2>
+						<h2 className="text-sm my-4 text-center">مقبول پوسٹس</h2>
 						<PopularPosts />
 					</div>
 					<button
@@ -84,7 +87,7 @@ const App = () => {
 							navigate("/admin-login");
 							setShowSideBar(false);
 						}}
-						className="bg-[#f5f1e6] px-2 lg:px-5 py-2 mb-2 rounded-full text-[#7b011e] border hover:bg-[#7b011e] hover:text-[#f5f1e6] hover:border-[#f5f1e6] duration-300 cursor-pointer text-xs"
+						className="bg-[#f5f1e6] px-2 mt-3 lg:px-5 py-2 mb-2 rounded-full text-[#7b011e] border hover:bg-[#7b011e] hover:text-[#f5f1e6] hover:border-[#f5f1e6] duration-300 cursor-pointer text-xs"
 					>
 						Admin Dashboard
 					</button>
@@ -93,43 +96,48 @@ const App = () => {
 					</p>
 				</div>
 			)}
-			<AnimatePresence mode="wait">
-				<Routes location={location} key={location.pathname}>
-					<Route path="/" element={<Home />}>
-						<Route index element={<CenterContent />} />
-						<Route path="personal-blog" element={<PersonalBlog />} />
-						<Route path="travelogues" element={<Travelogue />} />
-						<Route path="literary-criticism" element={<LiteraryCriticism />} />
-						<Route path="learn-urdu" element={<LearnUrdu />} />
-						<Route path="history-of-urdu" element={<HistoryOfUrdu />} />
-						<Route path="idioms-proverbs" element={<Idioms />} />
-						<Route path="poetry" element={<Poetry />} />
-						<Route path="prose" element={<Prose />} />
-						<Route path="humor" element={<Humor />} />
-						<Route path="fiction" element={<Fiction />} />
-						<Route path="character-sketches" element={<CharacterSketch />} />
-						<Route path="pakistan" element={<Pakistan />} />
-						<Route path="about" element={<About />} />
-						<Route path="hadith-details/:id" element={<HadithDetails />} />
-						<Route path="posts/:id" element={<Posts />} />
-					</Route>
-
-					<Route path="/profile/:id" element={<Profile />} />
-
-					{/* Public route */}
-					<Route path="/admin-login" element={<AdminLogin />} />
-
-					{/* Protected routes inside Layout */}
-					<Route element={<AdminRoute />}>
-						<Route path="/admin-layout" element={<Layout />}>
-							<Route index element={<AllPosts />} />
-							<Route path="add-new-posts" element={<AddNewPost />} />
-							<Route path="change-text" element={<ChangeText />} />
-							<Route path="edit-post/:id" element={<EditPost />} />
+			<Suspense fallback={<ScaleLoader color="#fff" height={25} width={4} />}>
+				<AnimatePresence mode="wait">
+					<Routes location={location} key={location.pathname}>
+						<Route path="/" element={<Home />}>
+							<Route index element={<CenterContent />} />
+							<Route path="personal-blog" element={<PersonalBlog />} />
+							<Route path="travelogues" element={<Travelogue />} />
+							<Route
+								path="literary-criticism"
+								element={<LiteraryCriticism />}
+							/>
+							<Route path="learn-urdu" element={<LearnUrdu />} />
+							<Route path="history-of-urdu" element={<HistoryOfUrdu />} />
+							<Route path="idioms-proverbs" element={<Idioms />} />
+							<Route path="poetry" element={<Poetry />} />
+							<Route path="prose" element={<Prose />} />
+							<Route path="humor" element={<Humor />} />
+							<Route path="fiction" element={<Fiction />} />
+							<Route path="character-sketches" element={<CharacterSketch />} />
+							<Route path="pakistan" element={<Pakistan />} />
+							<Route path="about" element={<About />} />
+							<Route path="hadith-details/:id" element={<HadithDetails />} />
+							<Route path="posts/:id" element={<Posts />} />
 						</Route>
-					</Route>
-				</Routes>
-			</AnimatePresence>
+
+						<Route path="/profile/:id" element={<Profile />} />
+
+						{/* Public route */}
+						<Route path="/admin-login" element={<AdminLogin />} />
+
+						{/* Protected routes inside Layout */}
+						<Route element={<AdminRoute />}>
+							<Route path="/admin-layout" element={<Layout />}>
+								<Route index element={<AllPosts />} />
+								<Route path="add-new-posts" element={<AddNewPost />} />
+								<Route path="change-text" element={<ChangeText />} />
+								<Route path="edit-post/:id" element={<EditPost />} />
+							</Route>
+						</Route>
+					</Routes>
+				</AnimatePresence>
+			</Suspense>
 		</div>
 	);
 };

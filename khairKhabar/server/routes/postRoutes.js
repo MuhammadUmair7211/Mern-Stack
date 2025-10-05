@@ -19,5 +19,5 @@ postRouter.post(
 postRouter.get("/get-all-posts", getAllPosts);
 postRouter.delete("/delete-post/:id", verifyAdmin, deletePost);
 postRouter.put("/edit-post/:id", verifyAdmin, upload.single("image"), editPost);
-postRouter.post("/likes/:postId", verifyAdmin, editLikePosts);
+postRouter.post("/likes/:postId", editLikePosts);
 export default postRouter;
