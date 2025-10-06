@@ -3,12 +3,12 @@ import { useApp } from "../contexts/AppContext";
 import { ScaleLoader } from "react-spinners";
 const HadithSection = () => {
 	const { hadith, navigate } = useApp();
-
 	const [index, setIndex] = useState(0);
 	useEffect(() => {
 		const today = new Date().getDate();
 		setIndex(today - 1);
 	}, [index]);
+
 	return (
 		<div
 			title="click to read full details of hadith"

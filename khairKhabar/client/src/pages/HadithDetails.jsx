@@ -12,7 +12,7 @@ const HadithDetails = () => {
 		<div className="font-urdu text-right">
 			<h2 className="text-2xl font-bold text-center mb-6 pb-2">احادیث</h2>
 
-			{filteredHadith.map((had) => {
+			{filteredHadith?.map((had) => {
 				return (
 					<div
 						key={had.id}

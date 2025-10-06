@@ -15,6 +15,7 @@ const AppProvider = ({ children }) => {
 	const [user, setUser] = useState(null);
 	const [loading, setLoading] = useState(false);
 	const { pathname } = useLocation();
+	const [followerLoading, setFollowerLoading] = useState(false);
 	const [text, setText] = useState(() => {
 		return localStorage.getItem("text");
 	});
@@ -22,6 +23,7 @@ const AppProvider = ({ children }) => {
 		localStorage.setItem("text", text);
 	}, [text]);
 	const fetchAllUsers = async () => {
+		setFollowerLoading(true);
 		const token = localStorage.getItem("token");
 		try {
 			const res = await fetch("http://localhost:3000/api/user/all-users", {
@@ -32,6 +34,7 @@ const AppProvider = ({ children }) => {
 			});
 			const data = await res.json();
 			setFollowers(data.registeredUsers);
+			setFollowerLoading(false);
 		} catch (error) {
 			console.error(error);
 		}
@@ -146,6 +149,7 @@ const AppProvider = ({ children }) => {
 		setText,
 		loading,
 		setLoading,
+		followerLoading,
 	};
 	return <AppContext.Provider value={value}>{children}</AppContext.Provider>;
 };
