@@ -10,7 +10,11 @@ const PopularPosts = () => {
 	);
 	return (
 		<div>
-			{!loading ? (
+			{loading ? (
+				<div className="flex justify-center items-center h-40">
+					<ScaleLoader color="#fff" height={25} width={4} />
+				</div>
+			) : (
 				filteredPopularPosts.slice(0, 5).map((post) => {
 					return (
 						<NavLink
@@ -23,10 +27,6 @@ const PopularPosts = () => {
 						</NavLink>
 					);
 				})
-			) : (
-				<div className="flex justify-center items-center h-40">
-					<ScaleLoader color="#fff" height={25} width={4} />
-				</div>
 			)}
 		</div>
 	);

@@ -1,0 +1,8 @@
+@import "tailwindcss";
+body {
+	font-family: Roboto;
+	background-color: #f2f2f2;
+}
+.font-vibes {
+	font-family: Great Vibes;
+}
