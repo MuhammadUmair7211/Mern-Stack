@@ -8,9 +8,7 @@ const SaleSection = () => {
 	return (
 		<div className="flex overflow-x-scroll gap-4 mt-8">
 			{filteredItems.map((product, index) => (
-				<div className="flex-none max-w-[280px] w-full">
-					<ProductCard product={product} key={index} />
-				</div>
+				<ProductCard product={product} key={index} />
 			))}
 		</div>
 	);

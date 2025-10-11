@@ -1,61 +1,58 @@
 import { useSelector } from "react-redux";
-import LinkSection from "../components/LinkSection";
 import ProductCard from "../components/ProductCard";
+import { useLocation } from "react-router-dom";
+import CategorySection from "../components/CategorySection";
+import { useState } from "react";
 
 const SportsAndFitness = () => {
 	const productDetails = useSelector((state) => state.product.products);
+
+	const location = useLocation();
+
+	const path = location.pathname.slice(1);
+	const words = path.split("-");
+	const firstWord = words?.[0];
+	const secondWord = words?.[1];
+
 	const filteredItems = productDetails.filter(
 		(items) =>
-			items.category.includes("Team Sports") ||
-			items.category.includes("Racquet Sports") ||
-			items.category.includes("Fitness & Training") ||
-			items.category.includes("Footwear")
+			items.category.toLowerCase().includes(firstWord) ||
+			items.category.toLowerCase().includes(secondWord)
 	);
 
-	const links = [
-		{
-			name: "Fitness & Training",
-			path: "/sports/fitness-training",
-		},
-		{
-			name: "Team Sports",
-			path: "/sports/team-sports",
-		},
-		{
-			name: "Racquet Sports",
-			path: "/sports/racquet-sports",
-		},
-		{
-			name: "Outdoor Sports",
-			path: "/sports/outdoor-sports",
-		},
-		{
-			name: "Footwear",
-			path: "/sports/footwear",
-		},
-		{
-			name: "Clothing",
-			path: "/sports/clothing",
-		},
-		{
-			name: "Accessories",
-			path: "/sports/accessories",
-		},
-		{
-			name: "Camping & Hiking",
-			path: "/sports/camping-hiking",
-		},
-	];
+	const categories = [...new Set(filteredItems.map((item) => item.category))];
+
+	const [selectedCategory, setSelectedCategory] = useState(null);
+
+	// Filter products based on selected category
+	const filteredProducts = selectedCategory
+		? filteredItems.filter((item) => item.category === selectedCategory)
+		: filteredItems;
 
 	return (
 		<div className="px-4 md:px-8 lg:px-18 py-2">
-			<div className="flex items-center flex-wrap justify-between bg-gray-200 mb-4">
-				{links.map((link, index) => {
-					return <LinkSection link={link} key={index} />;
+			<div className="flex items-center flex-wrap gap-2 justify-between bg-gray-200 mb-4">
+				{categories.map((category, index) => {
+					return (
+						<CategorySection
+							category={category}
+							index={index}
+							key={index}
+							selectedCategory={selectedCategory}
+							setSelectedCategory={setSelectedCategory}
+						/>
+					);
 				})}
+				{/* Optional: "All" button to reset filter */}
+				<button
+					onClick={() => setSelectedCategory(null)}
+					className="px-3 py-1 rounded bg-gray-500 hover:bg-gray-600 duration-300 text-white cursor-pointer"
+				>
+					All
+				</button>
 			</div>
 			<div className="grid grid-cols-1 md:grid-cols-4 lg:grid-cols-6 gap-4">
-				{filteredItems.map((product, index) => (
+				{filteredProducts.map((product, index) => (
 					<ProductCard product={product} key={index} />
 				))}
 			</div>

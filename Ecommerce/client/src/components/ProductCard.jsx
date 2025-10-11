@@ -1,13 +1,17 @@
+import { useNavigate } from "react-router-dom";
+
 const ProductCard = ({ product }) => {
+	const navigate = useNavigate();
 	return (
 		<div
-			key={product.id}
+			onClick={() => navigate(`/product-details-page/${product._id}`)}
+			key={product._id}
 			className="flex flex-col justify-between border border-gray-300 rounded-lg p-4 bg-white shadow cursor-pointer relative"
 		>
 			<img
 				src={product.image}
 				alt={product.title}
-				className="max-w-md w-full object-center hover:scale-110 duration-300"
+				className="w-full h-48 object-center hover:scale-110 duration-300"
 			/>
 			<div className="text-gray-700">
 				<h2 className="text-lg font-semibold mt-2">{product.title}</h2>

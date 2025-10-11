@@ -1,10 +1,10 @@
 import { useSelector } from "react-redux";
-import ProductCard from "../components/ProductCard";
-import CategorySection from "../components/CategorySection";
 import { useLocation } from "react-router-dom";
+import ProductCard from "../components/ProductCard";
 import { useState } from "react";
+import CategorySection from "../components/CategorySection";
 
-const HomeAndKitchen = () => {
+const BooksAndStationary = () => {
 	const productDetails = useSelector((state) => state.product.products);
 	const location = useLocation();
 
@@ -26,7 +26,6 @@ const HomeAndKitchen = () => {
 	const filteredProducts = selectedCategory
 		? filteredItems.filter((item) => item.category === selectedCategory)
 		: filteredItems;
-
 	return (
 		<div className="px-4 md:px-8 lg:px-18 py-2">
 			<div className="flex items-center flex-wrap gap-2 justify-between bg-gray-200 mb-4">
@@ -58,4 +57,4 @@ const HomeAndKitchen = () => {
 	);
 };
 
-export default HomeAndKitchen;
+export default BooksAndStationary;

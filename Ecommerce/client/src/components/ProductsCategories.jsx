@@ -9,11 +9,15 @@ const ProductsCategories = () => {
 			icon: assets.beautyHealthLogo,
 		},
 		{
-			path: "/books-stationary",
+			path: "/books-stationery",
 			name: "Books & Stationary",
 			icon: assets.booksStationaryLogo,
 		},
-		{ path: "/electronics", name: "Electronics", icon: assets.electronicsLogo },
+		{
+			path: "/electronics-accessories",
+			name: "Electronics",
+			icon: assets.electronicsLogo,
+		},
 		{
 			path: "/fashion-apparel",
 			name: "Fashion & Apparel",
@@ -34,7 +38,11 @@ const ProductsCategories = () => {
 			name: "Sports & Fitness",
 			icon: assets.sportsFitnessLogo,
 		},
-		{ path: "/toys-baby", name: "Toys & Baby", icon: assets.toysBabyLogo },
+		{
+			path: "/toys-baby",
+			name: "Toys & Baby",
+			icon: assets.toysBabyLogo,
+		},
 	];
 
 	return (
